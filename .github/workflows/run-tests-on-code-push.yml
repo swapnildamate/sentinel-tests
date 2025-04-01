@@ -25,13 +25,13 @@ jobs:
         run: sudo apt-get install -y maven
 
       # Step 4: Cache Maven dependencies to speed up the build process
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+#      - name: Cache Maven dependencies
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.m2/repository
+#          key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-maven-
 
       # Step 5: Run Tests
       - name: Run Tests
