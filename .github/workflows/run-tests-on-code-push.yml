@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'adoptium'  # This replaces 'adoptopenjdk'
+          distribution: 'corretto'  # This replaces 'adoptopenjdk'
 
       # Step 3: Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
