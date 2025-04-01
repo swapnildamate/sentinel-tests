@@ -33,14 +33,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Step 5: Install Dependencies using Maven
-      - name: Install Dependencies
-        run: mvn clean install
-
-      # Step 6: Build Project (Use mvn package if you want to build an artifact)
-      - name: Build Project
-        run: mvn package
-
-      # Step 7: Run Tests
+      # Step 5: Run Tests
       - name: Run Tests
         run: mvn clean test verify
