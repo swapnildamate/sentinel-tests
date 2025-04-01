@@ -13,17 +13,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Step 2: Install Oracle JDK 17
-      - name: Install Oracle JDK 17
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget
-          wget --no-check-certificate -q https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
-          sudo mkdir -p /usr/lib/jvm
-          sudo tar -xzf jdk-17_linux-x64_bin.tar.gz -C /usr/lib/jvm
-          sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-17/bin/java 1
-          sudo update-alternatives --config java
-          java -version
+      # Step 2: Set up JDK 17 for Maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adoptopenjdk'  # You can use 'zulu', 'adoptopenjdk', or any other supported distribution
 
       # Step 3: Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
