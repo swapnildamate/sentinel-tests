@@ -62,6 +62,8 @@ public class LoginPage {
     @FindBy(xpath = "//div[@id='slideover-account']//input[contains(@value,'Login')]")
     protected WebElement loginBtn;
 
+    @FindBy(xpath = "//div[@data-controller='alert']//p")
+    protected WebElement loginTxt;
 
     /**
      * Constructor for the LoginPage class.
@@ -162,6 +164,10 @@ public class LoginPage {
     public void clickOnLoginButton() {
         LoggerUtil.info("Clicking on login button.");
         loginBtn.click();
+    }
+
+    public String getSignedSuccessMsg(){
+        return loginTxt.getText().trim();
     }
 
 }

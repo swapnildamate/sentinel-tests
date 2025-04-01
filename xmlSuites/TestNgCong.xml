@@ -9,7 +9,7 @@
     </listeners>
     <test thread-count="5" name="Test">
         <classes>
-            <class name="org.sentinel.tests.ui.login.LoginTest"/>
+            <class name="org.sentinel.tests.ui.login.T0001LoginPageTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite Parent-->

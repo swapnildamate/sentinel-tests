@@ -19,7 +19,7 @@ public class ExcelUtil {
     static {
         String userDir = System.getProperty("user.dir"); // Gets the current working directory
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        FILE_PATH = userDir + File.separator + "reports" + File.separator + "excelReport" + File.separator + "TestSummary_" + timestamp + ".xlsx";
+        FILE_PATH = userDir + File.separator + "reports" + File.separator + "excel-report" + File.separator + "TestSummary_" + timestamp + ".xlsx";
     }
 
     /**
@@ -178,6 +178,7 @@ public class ExcelUtil {
                     }
 
                     status = status.trim();
+
                     Sheet sheet = workbook.getSheet(packageName);
                     if (sheet == null) {
                         sheet = workbook.createSheet(packageName);
@@ -210,6 +211,7 @@ public class ExcelUtil {
                     } else {
                         packageSummary.put("Fail", packageSummary.get("Fail") + 1);
                     }
+
                 }
 
                 if (!dataAdded) {

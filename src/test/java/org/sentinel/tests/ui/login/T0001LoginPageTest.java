@@ -1,5 +1,6 @@
 package org.sentinel.tests.ui.login;
 
+import io.qameta.allure.Description;
 import org.sentinel.tests.common.BaseTest;
 import org.sentinel.tests.common.LoggerUtil;
 import org.testng.annotations.Test;
@@ -32,10 +33,11 @@ import org.testng.annotations.Test;
  * @author Swapnil Damate
  * 
  */
-public class LoginTest extends BaseTest {
+public class T0001LoginPageTest extends BaseTest {
     private boolean result;
 
     @Test
+    @Description("Verify login page.")
     public void T0001() {
         driver.get(appURL);
 
@@ -64,4 +66,37 @@ public class LoginTest extends BaseTest {
 
         logAssert.assertAllWithLog();
     }
+
+    @Test
+    @Description("Verify user able to login into system.")
+    public void T0002() {
+
+        driver.get(appURL);
+
+        //Step 1
+        LoggerUtil.info("Step 1: Started.....");
+        result=loginPage.isDisplayedAccoutButton();
+        logAssert.assertTrue(result,"Step 1: Account button is displayed.","Step 1: Account button is not displayed.");
+        loginPage.clickOnAccount();
+
+        //Step 2
+        LoggerUtil.info("Step 2: Started.....");
+        loginPage.enterEmail("abc@gmail.com");
+
+        //Step 3
+        LoggerUtil.info("Step 3: Started.....");
+        loginPage.enterPassword("Password@123");
+
+        //Step 4
+        loginPage.clickOnLoginButton();
+
+        //Step 5
+        String actualMsg=loginPage.getSignedSuccessMsg();
+        LoggerUtil.info(String.format("Actual Msg : %s",actualMsg));
+        String expectedMsg="SIGNED IN SUCCESSFULLY.";
+        logAssert.assertEquals(actualMsg,expectedMsg,"Step 5: User signed is successfully.","Step 5: User un-authorized.");
+
+        logAssert.assertAllWithLog();
+    }
+
 }

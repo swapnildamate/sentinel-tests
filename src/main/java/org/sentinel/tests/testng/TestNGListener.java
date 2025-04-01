@@ -1,6 +1,9 @@
 package org.sentinel.tests.testng;
 
+import org.openqa.selenium.WebDriver;
+import org.sentinel.tests.common.LoggerUtil;
 import org.sentinel.tests.utils.ExcelUtil;
+import org.sentinel.tests.utils.ScreenshotUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -11,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TestNGListener implements ITestListener {
+    private static WebDriver driver;
 
     @Override
     public void onTestSuccess(ITestResult result) {
@@ -19,6 +23,14 @@ public class TestNGListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
+        ITestContext context = result.getTestContext();
+        driver = (WebDriver) context.getAttribute("driver");
+        if (driver != null) {
+            ScreenshotUtil.captureScreenshot(driver);
+            LoggerUtil.info("Screenshot not captured.");// Capture screenshot
+        } else {
+            LoggerUtil.warning("Driver is null. Screenshot not captured.");
+        }
         addTestResult(result, "Fail", result.getThrowable() != null ? result.getThrowable().getMessage() : "No error message");
     }
 

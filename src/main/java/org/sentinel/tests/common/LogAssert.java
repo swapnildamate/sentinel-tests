@@ -1,5 +1,6 @@
 package org.sentinel.tests.common;
 
+import org.sentinel.tests.utils.AllureLogUtil;
 import org.testng.asserts.IAssert;
 import org.testng.asserts.SoftAssert;
 
@@ -62,8 +63,10 @@ public class LogAssert extends SoftAssert {
     public void assertEquals(Object actual, Object expected, String passMsg, String failMsg) {
         if (actual == null ? expected == null : actual.equals(expected)) {
             LOGGER.info(passMsg);
+            AllureLogUtil.pass(passMsg);
         } else {
             LOGGER.severe(failMsg);
+            AllureLogUtil.fail(failMsg);
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }
@@ -98,11 +101,17 @@ public class LogAssert extends SoftAssert {
     public void assertAllWithLog() {
         if (!assertionErrors.isEmpty()) {
             LOGGER.severe("Test failed with " + assertionErrors.size() + " assertion errors.");
-            LOGGER.severe("Check [SEVERE] log. b ");
+            LOGGER.severe("Check [SEVERE] log.");
             assertionErrors.forEach(LOGGER::severe);
-            throw new AssertionError("Test failed with multiple assertion errors. Check logs for details.");
+            // Clear assertion errors before throwing the exception
+            List<String> errorsCopy = new ArrayList<>(assertionErrors);
+            assertionErrors.clear();
+            throw new AssertionError("Test failed with multiple assertion errors. Check logs for details.\n" + errorsCopy);
         }
+        // Ensure errors are cleared for the next test
+        assertionErrors.clear();
     }
+
 
 
 }

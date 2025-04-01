@@ -1,5 +1,7 @@
 package org.sentinel.tests.common;
 
+import org.sentinel.tests.utils.AllureLogUtil;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -179,6 +181,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void info(String message) {
+        AllureLogUtil.pass(message);
         log(Level.INFO, message);
     }
 
@@ -197,6 +200,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void error(String message) {
+        AllureLogUtil.fail(message);
         log(Level.SEVERE, message);
     }
 
