@@ -50,7 +50,7 @@ public class LoginTest extends BaseTest {
         String pageHeader=loginPage.getPageHeader();
         LoggerUtil.info(String.format("Actual page header is: %s",pageHeader));
         String expectedPageHeader="Account";
-//        logAssert.assertEquals(pageHeader,expectedPageHeader,"Step 2: Account page header matched.","Step 2: Account page header mismatched.");
+        logAssert.assertEquals(pageHeader,expectedPageHeader,"Step 2: Account page header matched.","Step 2: Account page header mismatched.");
 
         //Step 3
         LoggerUtil.info("Step 3: Started.....");
