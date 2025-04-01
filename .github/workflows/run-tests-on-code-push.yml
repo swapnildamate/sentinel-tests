@@ -20,7 +20,11 @@ jobs:
           java-version: '17'
           distribution: 'corretto'  # This replaces 'adoptopenjdk'
 
-      # Step 3: Cache Maven dependencies to speed up the build process
+      # Step 3: Install Maven
+      - name: Install Maven
+        run: sudo apt-get install -y maven
+
+      # Step 4: Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -29,14 +33,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Step 4: Install Dependencies using Maven
+      # Step 5: Install Dependencies using Maven
       - name: Install Dependencies
         run: mvn clean install
 
-      # Step 5: Build Project (Use mvn package if you want to build an artifact)
+      # Step 6: Build Project (Use mvn package if you want to build an artifact)
       - name: Build Project
         run: mvn package
 
-      # Step 6: Run Tests
+      # Step 7: Run Tests
       - name: Run Tests
         run: mvn clean test verify
