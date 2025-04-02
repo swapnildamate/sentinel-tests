@@ -1,8 +1,8 @@
-package org.sentinel.tests.reportUtils;
+package org.sentinel.tests.utils.insights;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import org.sentinel.tests.common.LoggerUtil;
+import org.sentinel.tests.utils.log.Logger;
 
 import java.io.*;
 
@@ -14,7 +14,7 @@ public class PDFReport {
 
     public static void generatePDF() {
         try {
-            LoggerUtil.info("PDF Report Generate Started.....");
+            Logger.info("PDF Report Generate Started.....");
 
             File directory = new File(pdfFilePath);
             if (!directory.exists()) {
@@ -22,7 +22,7 @@ public class PDFReport {
             }
 
             createPDFReport(logFilePath, pdfFileName);
-            LoggerUtil.info("PDF Report Generated.");
+            Logger.info("PDF Report Generated.");
         } catch (Exception e) {
             e.printStackTrace();
         }

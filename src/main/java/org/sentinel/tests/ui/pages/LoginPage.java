@@ -1,10 +1,10 @@
-package org.sentinel.tests.ui.common.pageObject;
+package org.sentinel.tests.ui.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.sentinel.tests.common.LoggerUtil;
+import org.sentinel.tests.utils.log.Logger;
 
 /**
  * This class represents the Login Page of the application and provides methods 
@@ -81,7 +81,7 @@ public class LoginPage {
      * @return {@code true} if the account button is displayed, {@code false} otherwise.
      */
     public boolean isDisplayedAccoutButton() {
-        LoggerUtil.info("Looking account button.");
+        Logger.info("Looking account button.");
         return accountBtn.isDisplayed();
     }
 
@@ -90,7 +90,7 @@ public class LoginPage {
      * This method logs the action and performs a click operation on the account button element.
      */
     public void clickOnAccount() {
-        LoggerUtil.info("Clicking on account button.");
+        Logger.info("Clicking on account button.");
         accountBtn.click();
     }
 
@@ -100,7 +100,7 @@ public class LoginPage {
      * @return A trimmed string representing the text of the page header.
      */
     public String getPageHeader() {
-        LoggerUtil.info("Getting account page header.");
+        Logger.info("Getting account page header.");
         return pageHeader.getText().trim();
     }
 
@@ -111,7 +111,7 @@ public class LoginPage {
      * @return {@code true} if the email input field is visible, {@code false} otherwise.
      */
     public boolean isDisplayedEmailField() {
-        LoggerUtil.info("Looking email field.");
+        Logger.info("Looking email field.");
         return emailInput.isDisplayed();
     }
 
@@ -121,7 +121,7 @@ public class LoginPage {
      * @param email The email address to be entered into the email input field.
      */
     public void enterEmail(String email) {
-        LoggerUtil.info("Entering email.....");
+        Logger.info("Entering email.....");
         emailInput.clear();
         emailInput.sendKeys(email);
     }
@@ -132,7 +132,7 @@ public class LoginPage {
      * @return {@code true} if the password input field is visible, {@code false} otherwise.
      */
     public boolean isPasswordField() {
-        LoggerUtil.info("Looking for password field.");
+        Logger.info("Looking for password field.");
         return passwordInput.isDisplayed();
     }
 
@@ -142,7 +142,7 @@ public class LoginPage {
      * @param password The password to be entered into the password input field.
      */
     public void enterPassword(String password) {
-        LoggerUtil.info("Entering password.....");
+        Logger.info("Entering password.....");
         passwordInput.clear();
         passwordInput.sendKeys(password);
     }
@@ -153,7 +153,7 @@ public class LoginPage {
      * @return {@code true} if the login button is visible, {@code false} otherwise.
      */
     public boolean isDisplayedLoginButton() {
-        LoggerUtil.info("Looking for login button.");
+        Logger.info("Looking for login button.");
         return loginBtn.isDisplayed();
     }
 
@@ -162,7 +162,7 @@ public class LoginPage {
      * This method logs the action and performs a click operation on the login button element.
      */
     public void clickOnLoginButton() {
-        LoggerUtil.info("Clicking on login button.");
+        Logger.info("Clicking on login button.");
         loginBtn.click();
     }
 

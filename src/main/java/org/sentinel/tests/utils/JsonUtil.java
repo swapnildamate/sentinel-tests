@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class JsonUtil {
         private static final String FILE_PATH = "D:\\git-hub\\SigmaTest\\automation-framework\\src\\data\\api\\T0001.json"; // JSON file path
-    private static org.sentinel.tests.common.LoggerUtil LoggerUtil;
+    private static org.sentinel.tests.utils.log.Logger LoggerUtil;
     private static final Logger logger = LoggerUtil.getLogger(); // Logger instance
 
         // Load JSON from a file

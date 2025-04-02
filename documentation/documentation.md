@@ -1,100 +1,134 @@
-> [!TIP]
-> Naviage to [Project Main Document](../README.md)
+# Automation Framework (API & UI Testing)
 
-# Project Documentation
+## 🚀 Overview
 
-## Overview
-This project is a UI automation framework using Selenium, TestNG, Maven, and Allure for reporting. The framework supports automated testing with Java 18 and integrates with cloud testing platforms like LambdaTest.
+This is a **Java-based Automation Framework** for testing **REST APIs** and **Web UI applications**. It uses **Selenium WebDriver** for UI automation and **RestAssured** for API testing, along with **TestNG/JUnit** for test execution and **Allure/Extent Reports** for reporting.
 
-## Features
-- Java 18-based automation framework
-- TestNG for test execution and assertions
-- Maven for build and dependency management
-- Allure Reports for test result visualization
-- Selenium WebDriver for browser automation
-- Cloud execution support (e.g., LambdaTest)
+## 🏗️ Project Structure
 
-## Prerequisites
-Ensure you have the following installed:
-- [Java 18](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html)
-- [Maven](https://maven.apache.org/install.html)
-- [Allure](https://docs.qameta.io/allure/)
-- [Git](https://git-scm.com/downloads)
+```
+automation-framework/
+│── src/
+│   ├── main/
+│   │   ├── java/
+│   │ utomation-framework/
+│── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── com/
+│   │   │   │   ├── project/
+│   │   │   │   │   ├── base/          # Base classes for API & UI tests
+│   │   │   │   │   ├── config/        # Configuration files & setup
+│   │   │   │   ├── com/
+│   │   │   │   ├── project/
+│   │   │   │   │   ├── base/          # Base classes for API & UI tests
+│   │   │   │   │   ├── config/        # Configuration files & setup
+│   │   │   │   │   ├── utils/         # Utility classes (JSON parser, WebDriver utils)
+│   │   │   │   │   ├── api/           # API Testing package
+│   │   │   │   │   │   ├── clients/   # API Client classes (HTTP methods)
+│   │   │   │   │   │   ├── models/    # Request & Response POJOs
+│   │   │   │   │   │   ├── tests/     # API test cases
+│   │   │   │   │   ├── ui/            # UI Testing package
+│   │   │   │   │   │   ├── pages/     # Page Object Model (POM)
+│   │   │   │   │   │   ├── tests/     # UI Test cases
+│   │   │   │   │   │   ├── components/# Common UI components (modals, menus)
+│   │   │   │   │   ├── runners/       # TestNG or JUnit test runners
+│   ├── test/
+│   │   ├── java/                      # Additional test files if needed
+│── resources/
+│   ├── testdata/                      # Test data files (JSON, CSV, Excel)
+│   ├── configs/                       # Config files (env, API base URL, browser settings)
+│── reports/                           # Test reports (Extent, Allure)
+│── logs/                              # Log files
+│── pom.xml                            # Maven dependencies
+│── README.md                          # Project documentation
+│── .gitignore                         # Ignoring unnecessary files
+```
 
-## Installation
-Clone the repository:
+## 🛠️ Tech Stack
+
+- **Java** (Programming Language)
+- **Selenium WebDriver** (UI Testing)
+- **RestAssured** (API Testing)
+- **TestNG / JUnit** (Test Execution)
+- **Maven** (Dependency Management)
+- **Allure / Extent Reports** (Test Reporting)
+- **Log4j** (Logging)
+
+## 🔧 Setup & Installation
+
+### **1️⃣ Clone the repository**
+
 ```sh
-git clone https://github.com/yourusername/your-repo.git
-cd your-repo
+git clone https://github.com/yourusername/automation-framework.git
+cd automation-framework
 ```
 
-## Configuration
-Modify the `config.properties` file to set:
-- `baseURL` for the application under test
-- `browser` for execution (Chrome, Firefox, etc.)
-- `gridURL` if running on a cloud/grid environment
+### **2️⃣ Install Dependencies**
 
-## Running Tests
-### Using Maven
-To execute all tests:
 ```sh
-mvn clean test
+mvn clean install
 ```
 
-To run tests from a specific suite:
+### **3️⃣ Configure Environment**
+
+Modify the configuration in `src/main/resources/configs/config.properties`:
+
+```properties
+browser=chrome
+baseUrl=https://example.com
+apiBaseUrl=https://reqres.in/api
+```
+
+### **4️⃣ Run Tests**
+
+#### **Run API Tests**
+
 ```sh
-mvn test -DsuiteXmlFile=testng.xml
+mvn test -Dtest=com.project.api.tests.UserAPITest
 ```
 
-### Generating Reports
-After test execution, generate Allure reports:
+#### **Run UI Tests**
+
 ```sh
-allure serve allure-results
+mvn test -Dtest=com.project.ui.tests.LoginTest
 ```
 
-## Project Structure
-```
-|-- src
-|   |-- main
-|   |   |-- java (utility classes)
-|   |-- test
-|   |   |-- java (test cases)
-|-- pom.xml (Maven dependencies)
-|-- testng.xml (Test suite configuration)
-|-- config.properties (Test configurations)
+#### **Run All Tests**
+
+```sh
+mvn test
 ```
 
-## Dependencies (Maven)
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>7.6.1</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>4.5.0</version>
-    </dependency>
-    <dependency>
-        <groupId>io.qameta.allure</groupId>
-        <artifactId>allure-testng</artifactId>
-        <version>2.21.0</version>
-    </dependency>
-</dependencies>
+## 📊 Reporting
+
+### **1️⃣ Generate Allure Reports**
+
+```sh
+mvn allure:serve
 ```
 
-## Contribution Guidelines
-1. Fork the repository.
-2. Create a new branch for your feature.
-3. Commit and push changes.
-4. Create a Pull Request for review.
+### **2️⃣ View Extent Reports**
 
-## License
-This project is licensed under the MIT License. See `LICENSE` for details.
+Reports are generated in `reports/` directory.
 
-## Contact
-For issues or feature requests, open a GitHub Issue or reach out at [your-email@example.com].
+## 🎯 CI/CD Integration
+
+You can integrate the framework with **Jenkins, GitHub Actions, or GitLab CI/CD** by adding a `Jenkinsfile` or `.github/workflows/test.yml`.
+
+## 🤝 Contributing
+
+1. **Fork** the repository
+2. **Create** a new branch (`git checkout -b feature-branch`)
+3. **Commit** your changes (`git commit -m 'Add new feature'`)
+4. **Push** to the branch (`git push origin feature-branch`)
+5. **Create** a Pull Request
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+🚀 Happy Testing! 🚀
 

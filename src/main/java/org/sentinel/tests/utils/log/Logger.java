@@ -1,6 +1,6 @@
-package org.sentinel.tests.common;
+package org.sentinel.tests.utils.log;
 
-import org.sentinel.tests.reportUtils.AllureLogUtil;
+import org.sentinel.tests.utils.insights.UpdateAllure;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -41,8 +41,8 @@ import java.util.logging.*;
  * @author Swapnil Damate
  * @version 1.0
  */
-public class LoggerUtil {
-    private static volatile Logger logger;
+public class Logger {
+    private static volatile java.util.logging.Logger logger;
     private static final Object lock = new Object();
 
     // ANSI Color Codes for Console Logs
@@ -54,7 +54,7 @@ public class LoggerUtil {
     private static final String CYAN = "\u001B[36m";
     private static final String PURPLE = "\u001B[35m";
 
-    private LoggerUtil() {
+    private Logger() {
         // Private constructor to prevent instantiation
     }
 
@@ -64,11 +64,11 @@ public class LoggerUtil {
      * 
      * @return the singleton logger instance
      */
-    public static Logger getLogger() {
+    public static java.util.logging.Logger getLogger() {
         if (logger == null) {
             synchronized (lock) {
                 if (logger == null) {
-                    logger = Logger.getLogger(LoggerUtil.class.getName());
+                    logger = java.util.logging.Logger.getLogger(Logger.class.getName());
                     setupLogger();
                 }
             }
@@ -181,7 +181,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void info(String message) {
-        AllureLogUtil.pass(message);
+        UpdateAllure.pass(message);
         log(Level.INFO, message);
     }
 
@@ -200,7 +200,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void error(String message) {
-        AllureLogUtil.fail(message);
+        UpdateAllure.fail(message);
         log(Level.SEVERE, message);
     }
 

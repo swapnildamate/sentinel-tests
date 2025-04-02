@@ -1,8 +1,8 @@
 package org.sentinel.tests.ui.login;
 
 import io.qameta.allure.Description;
-import org.sentinel.tests.common.BaseTest;
-import org.sentinel.tests.common.LoggerUtil;
+import org.sentinel.tests.base.BaseUIService;
+import org.sentinel.tests.utils.log.Logger;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.testng.annotations.Test;
 
@@ -36,7 +36,7 @@ import java.util.Map;
  *
  * @author Swapnil Damate
  */
-public class T0001LoginPageTest extends BaseTest {
+public class T0001LoginPageTest extends BaseUIService {
     private boolean result;
     private String dataFile="Users.xlsx";
 
@@ -48,7 +48,7 @@ public class T0001LoginPageTest extends BaseTest {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
 
         //Read Test Data
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
@@ -56,25 +56,25 @@ public class T0001LoginPageTest extends BaseTest {
         driver.get(appURL);
 
         //Step 1
-        LoggerUtil.info("Step 1: Started.....");
+        Logger.info("Step 1: Started.....");
         result = loginPage.isDisplayedAccoutButton();
         logAssert.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
         loginPage.clickOnAccount();
 
         //Step 2
-        LoggerUtil.info("Step 2: Started.....");
+        Logger.info("Step 2: Started.....");
         String pageHeader = loginPage.getPageHeader();
-        LoggerUtil.info(String.format("Actual page header is: %s", pageHeader));
+        Logger.info(String.format("Actual page header is: %s", pageHeader));
         String expectedPageHeader = "Account";
         logAssert.assertEquals(pageHeader, expectedPageHeader, "Step 2: Account page header matched.", "Step 2: Account page header mismatched.");
 
         //Step 3
-        LoggerUtil.info("Step 3: Started.....");
+        Logger.info("Step 3: Started.....");
         result = loginPage.isDisplayedEmailField();
         logAssert.assertTrue(result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
 
         //Step 4
-        LoggerUtil.info("Step 4: Started.....");
+        Logger.info("Step 4: Started.....");
         result = loginPage.isPasswordField();
         logAssert.assertTrue(result, "Step 4: Password field is displayed.", "Step 4: Password field is not displayed.");
 
@@ -89,24 +89,24 @@ public class T0001LoginPageTest extends BaseTest {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
 
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
 
         driver.get(appURL);
 
         //Step 1
-        LoggerUtil.info("Step 1: Started.....");
+        Logger.info("Step 1: Started.....");
         result = loginPage.isDisplayedAccoutButton();
         logAssert.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
         loginPage.clickOnAccount();
 
         //Step 2
-        LoggerUtil.info("Step 2: Started.....");
+        Logger.info("Step 2: Started.....");
         loginPage.enterEmail(testData.get("name"));
 
         //Step 3
-        LoggerUtil.info("Step 3: Started.....");
+        Logger.info("Step 3: Started.....");
         loginPage.enterPassword(testData.get("password"));
 
         //Step 4
@@ -114,7 +114,7 @@ public class T0001LoginPageTest extends BaseTest {
 
         //Step 5
         String actualMsg = loginPage.getSignedSuccessMsg();
-        LoggerUtil.info(String.format("Actual Msg : %s", actualMsg));
+        Logger.info(String.format("Actual Msg : %s", actualMsg));
         String expectedMsg = "SIGNED IN SUCCESSFULLY.";
         logAssert.assertEquals(actualMsg, expectedMsg, "Step 5: User signed is successfully.", "Step 5: User un-authorized.");
 
@@ -128,7 +128,7 @@ public class T0001LoginPageTest extends BaseTest {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
     }
 
 }

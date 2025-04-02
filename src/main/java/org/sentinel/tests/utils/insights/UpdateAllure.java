@@ -1,4 +1,4 @@
-package org.sentinel.tests.reportUtils;
+package org.sentinel.tests.utils.insights;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
@@ -6,7 +6,7 @@ import io.qameta.allure.model.Status;
 
 import java.lang.reflect.Method;
 
-public class AllureLogUtil {
+public class UpdateAllure {
 
     public static void step(boolean result, String passMsg, String failMsg) {
         if (result == true) {

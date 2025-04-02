@@ -1,11 +1,11 @@
-package org.sentinel.tests.testng;
+package org.sentinel.tests.utils.testng;
 
 import org.testng.ITestContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestNGParamStore {
+public class ReadTestNG {
 
     private static final Map<String, String> paramMap = new HashMap<>();
 

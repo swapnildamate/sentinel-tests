@@ -2,7 +2,7 @@ package org.sentinel.tests.utils;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.sentinel.tests.common.LoggerUtil;
+import org.sentinel.tests.utils.log.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +37,7 @@ public class ExcelUtil {
 
                 Sheet sheet = workbook.getSheet(sheetName);
                 if (sheet == null) {
-                    LoggerUtil.info("Sheet not found: " + sheetName);
+                    Logger.info("Sheet not found: " + sheetName);
                     return dataMap;
                 }
 
@@ -75,11 +75,11 @@ public class ExcelUtil {
                 }
 
                 FILE_PATH_LATEST = FILE_PATH;
-                LoggerUtil.info(String.format("File Location: %s", FILE_PATH_LATEST));
+                Logger.info(String.format("File Location: %s", FILE_PATH_LATEST));
 
                 File file = new File(FILE_PATH_LATEST);
                 if (file.exists()) {
-                    LoggerUtil.info("Excel file already exists: " + FILE_PATH_LATEST);
+                    Logger.info("Excel file already exists: " + FILE_PATH_LATEST);
                     return;
                 }
 
@@ -96,7 +96,7 @@ public class ExcelUtil {
 //                    }
 
                     workbook.write(fos);
-                    LoggerUtil.info("Excel file created successfully: " + FILE_PATH_LATEST);
+                    Logger.info("Excel file created successfully: " + FILE_PATH_LATEST);
                 }
             } catch (IOException e) {
                 System.err.println("Error creating Excel file: " + e.getMessage());
@@ -116,7 +116,7 @@ public class ExcelUtil {
 
                 Sheet sheet = workbook.getSheet("TestCases");
                 if (sheet == null) {
-                    LoggerUtil.info("Sheet 'TestCases' not found!");
+                    Logger.info("Sheet 'TestCases' not found!");
                     return;
                 }
 
@@ -130,7 +130,7 @@ public class ExcelUtil {
                 newRow.createCell(4).setCellValue(remark);
 
                 workbook.write(fos);
-                LoggerUtil.info("Added Test Case: " + methodName + " -> Status: " + status + ", Remark: " + remark);
+                Logger.info("Added Test Case: " + methodName + " -> Status: " + status + ", Remark: " + remark);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -230,7 +230,7 @@ public class ExcelUtil {
                 }
 
                 if (!dataAdded) {
-                    LoggerUtil.info("No valid test cases found. Skipping Excel update.");
+                    Logger.info("No valid test cases found. Skipping Excel update.");
                     return;
                 }
 
@@ -239,7 +239,7 @@ public class ExcelUtil {
 
                 fos = new FileOutputStream(FILE_PATH_LATEST);
                 workbook.write(fos);
-                LoggerUtil.info("Excel update complete!");
+                Logger.info("Excel update complete!");
 
             } catch (IOException e) {
                 e.printStackTrace();

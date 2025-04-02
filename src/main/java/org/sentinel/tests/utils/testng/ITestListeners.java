@@ -1,8 +1,8 @@
-package org.sentinel.tests.testng;
+package org.sentinel.tests.utils.testng;
 
 import org.openqa.selenium.WebDriver;
-import org.sentinel.tests.common.LoggerUtil;
-import org.sentinel.tests.reportUtils.ScreenshotUtil;
+import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.insights.TakeScreenshot;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -10,14 +10,14 @@ import org.testng.ITestResult;
 
 import java.util.*;
 
-public class TestNGListener implements ITestListener {
+public class ITestListeners implements ITestListener {
     private static WebDriver driver;
     protected List<Map<String, String>> testCasesResultMap = new ArrayList<>();
 
     @Override
     public void onStart(ITestContext context) {
         ITestListener.super.onStart(context);
-        LoggerUtil.info("********** Test Execution Started.....**********");
+        Logger.info("********** Test Execution Started.....**********");
     }
 
     @Override
@@ -30,10 +30,10 @@ public class TestNGListener implements ITestListener {
         ITestContext context = result.getTestContext();
         driver = (WebDriver) context.getAttribute("driver");
         if (driver != null) {
-            ScreenshotUtil.captureScreenshot(driver);
-            LoggerUtil.info("Screenshot not captured.");// Capture screenshot
+            TakeScreenshot.captureScreenshot(driver);
+            Logger.info("Screenshot not captured.");// Capture screenshot
         } else {
-            LoggerUtil.warning("Driver is null. Screenshot not captured.");
+            Logger.warning("Driver is null. Screenshot not captured.");
         }
         addTestResult(result, "Fail", result.getThrowable() != null ? result.getThrowable().getMessage() : "No error message");
     }
@@ -45,9 +45,9 @@ public class TestNGListener implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
-        LoggerUtil.info("********** Test Execution Completed.....**********");
+        Logger.info("********** Test Execution Completed.....**********");
         testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
-        LoggerUtil.warning(testCasesResultMap.toString());
+        Logger.warning(testCasesResultMap.toString());
         if (!testCasesResultMap.isEmpty()) {
             ExcelUtil.addTestCases(testCasesResultMap);
         }
@@ -70,9 +70,9 @@ public class TestNGListener implements ITestListener {
         String packageName = "Adhoc"; // Default if no package is found
         if (lastDotIndex != -1) {
             packageName = fullClassName.substring(0, lastDotIndex);
-            LoggerUtil.info("Package Name: " + packageName);
+            Logger.info("Package Name: " + packageName);
         } else {
-            LoggerUtil.info("No package found. Class might be in the default package.");
+            Logger.info("No package found. Class might be in the default package.");
         }
 
         // Create test result entry
@@ -86,8 +86,7 @@ public class TestNGListener implements ITestListener {
         synchronized (testCasesResultMap) {
             testCasesResultMap.add(resultMap);
         }
-        LoggerUtil.info("Test Result Added: " + resultMap);
-        LoggerUtil.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+testCasesResultMap);
+        Logger.info("Test Result Added: " + resultMap);
     }
 
 }

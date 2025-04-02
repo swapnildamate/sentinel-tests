@@ -1,15 +1,15 @@
-package org.sentinel.tests.common;
+package org.sentinel.tests.utils.testng;
 
-import org.sentinel.tests.reportUtils.AllureLogUtil;
+import org.sentinel.tests.utils.insights.UpdateAllure;
+import org.sentinel.tests.utils.log.Logger;
 import org.testng.asserts.IAssert;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-public class LogAssert extends SoftAssert {
-    private static final Logger LOGGER = LoggerUtil.getLogger();
+public class AssertLog extends SoftAssert {
+    private static final java.util.logging.Logger LOGGER = Logger.getLogger();
     private final List<String> assertionErrors = new ArrayList<>();
 
     @Override
@@ -63,10 +63,10 @@ public class LogAssert extends SoftAssert {
     public void assertEquals(Object actual, Object expected, String passMsg, String failMsg) {
         if (actual == null ? expected == null : actual.equals(expected)) {
             LOGGER.info(passMsg);
-            AllureLogUtil.pass(passMsg);
+            UpdateAllure.pass(passMsg);
         } else {
             LOGGER.severe(failMsg);
-            AllureLogUtil.fail(failMsg);
+            UpdateAllure.fail(failMsg);
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }

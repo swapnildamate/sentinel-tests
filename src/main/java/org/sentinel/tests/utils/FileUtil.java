@@ -1,6 +1,6 @@
 package org.sentinel.tests.utils;
 
-import org.sentinel.tests.common.LoggerUtil;
+import org.sentinel.tests.utils.log.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 
-public class HandleFile {
+public class FileUtil {
 
     public static void deleteDir(Path directory) {
         String userDir = System.getProperty("user.dir");
@@ -19,12 +19,12 @@ public class HandleFile {
                         try {
                             Files.delete(path);
                         } catch (IOException e) {
-                            LoggerUtil.warning("Unable to delete " + path + ": " + e.getMessage());
+                            Logger.warning("Unable to delete " + path + ": " + e.getMessage());
                         }
                     });
-            LoggerUtil.info("Directory deleted successfully.");
+            Logger.info("Directory deleted successfully.");
         } catch (IOException e) {
-            LoggerUtil.error("Error walking the file tree: " + e.getMessage());
+            Logger.error("Error walking the file tree: " + e.getMessage());
         }
     }
 
@@ -33,12 +33,12 @@ public class HandleFile {
         try {
             if (Files.exists(filePath)) {
                 Files.delete(filePath);
-                LoggerUtil.info("File deleted successfully: " + filePath);
+                Logger.info("File deleted successfully: " + filePath);
             } else {
-                LoggerUtil.warning("File not found: " + filePath);
+                Logger.warning("File not found: " + filePath);
             }
         } catch (IOException e) {
-            LoggerUtil.error("Unable to delete file " + filePath + ": " + e.getMessage());
+            Logger.error("Unable to delete file " + filePath + ": " + e.getMessage());
         }
     }
 }
