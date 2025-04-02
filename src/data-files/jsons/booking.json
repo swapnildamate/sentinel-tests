@@ -1,0 +1,12 @@
+[
+  {
+    "testCaseID": "booking.getAuth",
+    "post.CreateToken": "auth",
+    "reqBody": "{ \"username\" : \"admin\", \"password\" : \"password123\" }",
+    "resBody": "{ \"token\": \"{{token}}\" }"
+  },
+  {
+    "testCaseID": "booking.geBookingIds",
+    "get.BookingId": "booking"
+  }
+]

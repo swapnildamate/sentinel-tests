@@ -4,6 +4,7 @@
     <parameter name="operatingsystem" value="windows"></parameter>
     <parameter name="browser" value="chrome"></parameter>
     <parameter name="appURL" value="https://demo.spreecommerce.org/"></parameter>
+    <parameter name="baseURI" value="https://restful-booker.herokuapp.com/"></parameter>
     <listeners>
         <listener class-name="org.sentinel.tests.utils.testng.ITestListeners"/>
     </listeners>
@@ -13,8 +14,11 @@
         <!--            <package name="org.sentinel.tests.ui.logout"></package>-->
         <!--        </packages>-->
         <classes>
-            <class name="org.sentinel.tests.ui.login.T0001LoginPageTest">
+<!--            <class name="org.sentinel.tests.ui.login.T0001LoginPageTest">-->
+<!--            </class>-->
+            <class name="org.sentinel.tests.api.booking.T0201">
             </class>
         </classes>
+
     </test> <!-- Test -->
 </suite> <!-- Suite Parent-->

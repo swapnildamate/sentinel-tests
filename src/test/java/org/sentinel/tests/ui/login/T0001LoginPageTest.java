@@ -30,7 +30,7 @@ import java.util.Map;
  * <ul>
  *   <li>Requires the BaseTestUI class for test setup and teardown.</li>
  *   <li>Uses the loginPage object for interacting with the login page elements.</li>
- *   <li>Relies on the logAssert utility for assertion logging.</li>
+ *   <li>Relies on the assertLog utility for assertion logging.</li>
  *   <li>Utilizes LoggerUtil for logging information.</li>
  * </ul>
  *
@@ -58,7 +58,7 @@ public class T0001LoginPageTest extends BaseUIService {
         //Step 1
         Logger.info("Step 1: Started.....");
         result = loginPage.isDisplayedAccoutButton();
-        logAssert.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
+        assertLog.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
         loginPage.clickOnAccount();
 
         //Step 2
@@ -66,19 +66,19 @@ public class T0001LoginPageTest extends BaseUIService {
         String pageHeader = loginPage.getPageHeader();
         Logger.info(String.format("Actual page header is: %s", pageHeader));
         String expectedPageHeader = "Account";
-        logAssert.assertEquals(pageHeader, expectedPageHeader, "Step 2: Account page header matched.", "Step 2: Account page header mismatched.");
+        assertLog.assertEquals(pageHeader, expectedPageHeader, "Step 2: Account page header matched.", "Step 2: Account page header mismatched.");
 
         //Step 3
         Logger.info("Step 3: Started.....");
         result = loginPage.isDisplayedEmailField();
-        logAssert.assertTrue(result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
+        assertLog.assertTrue(result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
 
         //Step 4
         Logger.info("Step 4: Started.....");
         result = loginPage.isPasswordField();
-        logAssert.assertTrue(result, "Step 4: Password field is displayed.", "Step 4: Password field is not displayed.");
+        assertLog.assertTrue(result, "Step 4: Password field is displayed.", "Step 4: Password field is not displayed.");
 
-        logAssert.assertAllWithLog();
+        assertLog.assertAllWithLog();
     }
 
     @Test
@@ -98,7 +98,7 @@ public class T0001LoginPageTest extends BaseUIService {
         //Step 1
         Logger.info("Step 1: Started.....");
         result = loginPage.isDisplayedAccoutButton();
-        logAssert.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
+        assertLog.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
         loginPage.clickOnAccount();
 
         //Step 2
@@ -116,9 +116,9 @@ public class T0001LoginPageTest extends BaseUIService {
         String actualMsg = loginPage.getSignedSuccessMsg();
         Logger.info(String.format("Actual Msg : %s", actualMsg));
         String expectedMsg = "SIGNED IN SUCCESSFULLY.";
-        logAssert.assertEquals(actualMsg, expectedMsg, "Step 5: User signed is successfully.", "Step 5: User un-authorized.");
+        assertLog.assertEquals(actualMsg, expectedMsg, "Step 5: User signed is successfully.", "Step 5: User un-authorized.");
 
-        logAssert.assertAllWithLog();
+        assertLog.assertAllWithLog();
     }
 
     @Test

@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class BaseUIService {
     protected WebDriver driver;
-    protected AssertLog logAssert = new AssertLog();
+    protected AssertLog assertLog = new AssertLog();
     protected String osType;
     protected String browserType;
     protected String appURL;
