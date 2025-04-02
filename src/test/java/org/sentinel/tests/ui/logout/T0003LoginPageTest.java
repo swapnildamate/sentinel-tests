@@ -1,4 +1,4 @@
-package org.sentinel.tests.ui.login;
+package org.sentinel.tests.ui.logout;
 
 import io.qameta.allure.Description;
 import org.sentinel.tests.common.BaseTest;
@@ -36,13 +36,13 @@ import java.util.Map;
  *
  * @author Swapnil Damate
  */
-public class T0001LoginPageTest extends BaseTest {
+public class T0003LoginPageTest extends BaseTest {
     private boolean result;
     private String dataFile="Users.xlsx";
 
     @Test
     @Description("Verify login page.")
-    public void T0011() throws Exception {
+    public void T0031() throws Exception {
 
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
@@ -83,7 +83,7 @@ public class T0001LoginPageTest extends BaseTest {
 
     @Test
     @Description("Verify user able to login into system.")
-    public void T0012() throws Exception {
+    public void T0032() throws Exception {
 
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
@@ -123,7 +123,7 @@ public class T0001LoginPageTest extends BaseTest {
 
     @Test
     @Description("Test Case T0003")
-    public void T0013() throws Exception {
+    public void T0033() throws Exception {
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);

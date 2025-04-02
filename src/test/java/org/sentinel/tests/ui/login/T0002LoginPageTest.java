@@ -36,13 +36,13 @@ import java.util.Map;
  *
  * @author Swapnil Damate
  */
-public class T0001LoginPageTest extends BaseTest {
+public class T0002LoginPageTest extends BaseTest {
     private boolean result;
     private String dataFile="Users.xlsx";
 
     @Test
     @Description("Verify login page.")
-    public void T0011() throws Exception {
+    public void T0021() throws Exception {
 
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
@@ -83,7 +83,7 @@ public class T0001LoginPageTest extends BaseTest {
 
     @Test
     @Description("Verify user able to login into system.")
-    public void T0012() throws Exception {
+    public void T0022() throws Exception {
 
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
@@ -123,12 +123,11 @@ public class T0001LoginPageTest extends BaseTest {
 
     @Test
     @Description("Test Case T0003")
-    public void T0013() throws Exception {
+    public void T0023() throws Exception {
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
         LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
     }
-
 }

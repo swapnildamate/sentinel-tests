@@ -163,9 +163,18 @@ public class ExcelUtil {
 
     public static void addTestCases(List<Map<String, String>> testCases) {
         synchronized (lock) {
-            try (FileInputStream fis = new FileInputStream(FILE_PATH_LATEST);
-                 Workbook workbook = new XSSFWorkbook(fis);
-                 FileOutputStream fos = new FileOutputStream(FILE_PATH_LATEST)) {
+            FileInputStream fis = null;
+            FileOutputStream fos = null;
+            Workbook workbook = null;
+
+            try {
+                File file = new File(FILE_PATH_LATEST);
+                if (!file.exists()) {
+                    workbook = new XSSFWorkbook(); // Create new workbook if file does not exist
+                } else {
+                    fis = new FileInputStream(file);
+                    workbook = new XSSFWorkbook(fis);
+                }
 
                 Map<String, Map<String, Integer>> summaryMap = new LinkedHashMap<>();
                 boolean dataAdded = false;
@@ -182,9 +191,10 @@ public class ExcelUtil {
 
                     status = status.trim();
 
-                    Sheet sheet = workbook.getSheet(packageName);
+                    // Get or create the sheet
+                    Sheet sheet = workbook.getSheet(packageName.split(".tests.")[1]);
                     if (sheet == null) {
-                        sheet = workbook.createSheet(packageName);
+                        sheet = workbook.createSheet(packageName.split(".tests.")[1]);
                         createHeader(sheet);
                     }
 
@@ -193,28 +203,30 @@ public class ExcelUtil {
                     newRow.createCell(0).setCellValue(lastRowNum + 1);
                     newRow.createCell(1).setCellValue(packageName);
                     newRow.createCell(2).setCellValue(methodName);
+
                     newRow.createCell(3).setCellValue(status);
+
+                    Cell statusCell = newRow.createCell(3);
+                    statusCell.setCellValue(status);
+                    statusCell.setCellStyle(getStatusCellStyle(workbook, status));
+
                     newRow.createCell(4).setCellValue(remark);
 
                     dataAdded = true;
                     summaryMap.putIfAbsent(packageName, new HashMap<>());
                     Map<String, Integer> packageSummary = summaryMap.get(packageName);
 
-                    // Ensure keys exist before updating
                     packageSummary.putIfAbsent("Total", 0);
                     packageSummary.putIfAbsent("Pass", 0);
                     packageSummary.putIfAbsent("Fail", 0);
 
-                    // Increment total count
                     packageSummary.put("Total", packageSummary.get("Total") + 1);
 
-                    // Increment pass/fail count
                     if ("Pass".equalsIgnoreCase(status)) {
                         packageSummary.put("Pass", packageSummary.get("Pass") + 1);
                     } else {
                         packageSummary.put("Fail", packageSummary.get("Fail") + 1);
                     }
-
                 }
 
                 if (!dataAdded) {
@@ -224,14 +236,25 @@ public class ExcelUtil {
 
                 removeEmptySheets(workbook);
                 updateSummarySheet(workbook, summaryMap);
+
+                fos = new FileOutputStream(FILE_PATH_LATEST);
                 workbook.write(fos);
                 LoggerUtil.info("Excel update complete!");
 
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    if (fis != null) fis.close();
+                    if (fos != null) fos.close();
+                    if (workbook != null) workbook.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
+
 
     private static void createHeader(Sheet sheet) {
         if (sheet.getPhysicalNumberOfRows() > 0) {
@@ -297,5 +320,21 @@ public class ExcelUtil {
         }
     }
 
+    private static CellStyle getStatusCellStyle(Workbook workbook, String status) {
+        CellStyle style = workbook.createCellStyle();
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        if ("Pass".equalsIgnoreCase(status)) {
+            style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex()); // 🟢 Green
+        } else if ("Fail".equalsIgnoreCase(status)) {
+            style.setFillForegroundColor(IndexedColors.RED.getIndex()); // 🔴 Red
+        } else if ("Skip".equalsIgnoreCase(status)) {
+            style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex()); // 🔵 Blue
+        } else {
+            style.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex()); // 🟡 Yellow for Warning/Other
+        }
+
+        return style;
+    }
 
 }

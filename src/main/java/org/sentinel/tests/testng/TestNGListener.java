@@ -3,17 +3,16 @@ package org.sentinel.tests.testng;
 import org.openqa.selenium.WebDriver;
 import org.sentinel.tests.common.LoggerUtil;
 import org.sentinel.tests.reportUtils.ScreenshotUtil;
+import org.sentinel.tests.utils.ExcelUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TestNGListener implements ITestListener {
     private static WebDriver driver;
+    protected List<Map<String, String>> testCasesResultMap = new ArrayList<>();
 
     @Override
     public void onStart(ITestContext context) {
@@ -47,23 +46,48 @@ public class TestNGListener implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         LoggerUtil.info("********** Test Execution Completed.....**********");
+        testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
+        LoggerUtil.warning(testCasesResultMap.toString());
+        if (!testCasesResultMap.isEmpty()) {
+            ExcelUtil.addTestCases(testCasesResultMap);
+        }
     }
 
     private void addTestResult(ITestResult result, String status, String remark) {
         ITestContext context = result.getTestContext();
+
+        // Retrieve or initialize testCasesResultMap
         List<Map<String, String>> testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
 
         if (testCasesResultMap == null) {
-            testCasesResultMap = new ArrayList<>();
+            testCasesResultMap = Collections.synchronizedList(new ArrayList<>()); // Ensures thread safety
             context.setAttribute("testCasesResultMap", testCasesResultMap);
         }
 
+        String fullClassName = result.getTestClass().getName();
+        int lastDotIndex = fullClassName.lastIndexOf('.');
+
+        String packageName = "Adhoc"; // Default if no package is found
+        if (lastDotIndex != -1) {
+            packageName = fullClassName.substring(0, lastDotIndex);
+            LoggerUtil.info("Package Name: " + packageName);
+        } else {
+            LoggerUtil.info("No package found. Class might be in the default package.");
+        }
+
+        // Create test result entry
         Map<String, String> resultMap = new HashMap<>();
-        resultMap.put("Package", result.getTestClass().getName());
+        resultMap.put("Package", packageName);
         resultMap.put("Method", result.getMethod().getMethodName());
         resultMap.put("Status", status);
         resultMap.put("Remark", remark);
 
-        testCasesResultMap.add(resultMap);
+        // Add the result to the shared list
+        synchronized (testCasesResultMap) {
+            testCasesResultMap.add(resultMap);
+        }
+        LoggerUtil.info("Test Result Added: " + resultMap);
+        LoggerUtil.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+testCasesResultMap);
     }
+
 }

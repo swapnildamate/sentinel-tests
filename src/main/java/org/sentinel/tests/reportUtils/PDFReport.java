@@ -12,9 +12,6 @@ public class PDFReport {
     private static String pdfFilePath = "reports/pdf-report";
     private static String pdfFileName = "reports/pdf-report/PDFReport.pdf";
 
-    public static void main(String[] args) {
-        generatePDF();
-    }
     public static void generatePDF() {
         try {
             LoggerUtil.info("PDF Report Generate Started.....");

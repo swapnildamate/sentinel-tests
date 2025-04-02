@@ -80,17 +80,15 @@ public class BaseTest {
      * This is used for close the browser.
      */
     @AfterClass
-    public void closeBrowser() {
-        driver.close();
+    public void closeBrowser(ITestContext context) {
+
     }
 
     @AfterSuite(alwaysRun = true)
     public void pushResultData() {
 //        driver.close();
 //        WebDriverManager.quitDriver();
-        if (!testCasesResultMap.isEmpty()) {
-            ExcelUtil.addTestCases(testCasesResultMap);
-        }
+
         PDFReport.generatePDF();
     }
 }

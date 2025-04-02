@@ -8,14 +8,15 @@
         <listener class-name="org.sentinel.tests.testng.TestNGListener"/>
     </listeners>
     <test thread-count="5" name="Test">
-        <classes>
-            <class name="org.sentinel.tests.ui.login.T0001LoginPageTest">
-                <methods>
-                    <include name="T0001"/>
-                    <include name="T0002"/>
-                    <include name="T0003"/>
-                </methods>
-            </class>
-        </classes>
+        <packages>
+            <package name="org.sentinel.tests.ui.login"></package>
+            <package name="org.sentinel.tests.ui.logout"></package>
+        </packages>
+<!--        <classes>-->
+<!--            <class name="org.sentinel.tests.ui.login.T0002LoginPageTest">-->
+<!--            </class>-->
+<!--            <class name="org.sentinel.tests.ui.login.T0001LoginPageTest">-->
+<!--            </class>-->
+<!--        </classes>-->
     </test> <!-- Test -->
 </suite> <!-- Suite Parent-->
