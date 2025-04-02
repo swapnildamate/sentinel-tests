@@ -104,7 +104,7 @@ public class PDFReport {
         switch (level.toUpperCase()) {
             case "[INFO]":
                 return BaseColor.GREEN;
-            case "[WARN]":
+            case "[WARNING]":
                 return BaseColor.ORANGE;
             case "[ERROR]":
                 return BaseColor.RED;

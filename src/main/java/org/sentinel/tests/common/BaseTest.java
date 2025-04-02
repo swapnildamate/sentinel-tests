@@ -44,8 +44,6 @@ public class BaseTest {
         HandleFile.deleteDir(excel_report);
         Path pdf_report = Paths.get("reports/pdf-report");
         HandleFile.deleteDir(pdf_report);
-        Path app_log = Paths.get("app.log");
-        HandleFile.deleteFile(app_log);
         ExcelUtil.createExcelFile();
     }
 

@@ -25,7 +25,10 @@ public class ExcelUtil {
     /**
      * Reads key-value pairs from an Excel sheet and stores them in a Map.
      */
-    public static Map<String, String> readKeyValuePairs(String filePath, String sheetName) {
+    public static Map<String, String> readKeyValuePairs(String fileName, String sheetName) {
+        String userDir = System.getProperty("user.dir");
+        String filePath = userDir + File.separator + "src" + File.separator + "data-files" + File.separator + "excel" + File.separator + fileName;
+
         synchronized (lock) {
             Map<String, String> dataMap = new HashMap<>();
 

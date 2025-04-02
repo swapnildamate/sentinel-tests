@@ -16,6 +16,12 @@ public class TestNGListener implements ITestListener {
     private static WebDriver driver;
 
     @Override
+    public void onStart(ITestContext context) {
+        ITestListener.super.onStart(context);
+        LoggerUtil.info("********** Test Execution Started.....**********");
+    }
+
+    @Override
     public void onTestSuccess(ITestResult result) {
         addTestResult(result, "Pass", "Test executed successfully");
     }
@@ -40,13 +46,7 @@ public class TestNGListener implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
-
-        // Retrieve and push results to Excel
-        List<Map<String, String>> testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
-        if (testCasesResultMap != null) {
-            String resultExcelPath = (String) context.getAttribute("resultExcelPath");
-            //ExcelUtil.addTestCases(testCasesResultMap);
-        }
+        LoggerUtil.info("********** Test Execution Completed.....**********");
     }
 
     private void addTestResult(ITestResult result, String status, String remark) {
