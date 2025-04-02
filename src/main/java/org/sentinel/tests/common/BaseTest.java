@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.sentinel.tests.enums.BrowserType;
 import org.sentinel.tests.enums.OSType;
-import org.sentinel.tests.reports.PDFReport;
+import org.sentinel.tests.reportUtils.PDFReport;
 import org.sentinel.tests.testng.TestNGParamStore;
 import org.sentinel.tests.ui.common.WebDriverManager;
 import org.sentinel.tests.ui.common.pageObject.LoginPage;

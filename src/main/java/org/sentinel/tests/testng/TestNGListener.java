@@ -2,8 +2,7 @@ package org.sentinel.tests.testng;
 
 import org.openqa.selenium.WebDriver;
 import org.sentinel.tests.common.LoggerUtil;
-import org.sentinel.tests.utils.ExcelUtil;
-import org.sentinel.tests.reports.ScreenshotUtil;
+import org.sentinel.tests.reportUtils.ScreenshotUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
