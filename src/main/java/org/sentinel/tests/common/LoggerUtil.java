@@ -1,6 +1,6 @@
 package org.sentinel.tests.common;
 
-import org.sentinel.tests.utils.AllureLogUtil;
+import org.sentinel.tests.reports.AllureLogUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -215,4 +215,5 @@ public class LoggerUtil {
             getLogger().log(level, message);
         }
     }
+
 }

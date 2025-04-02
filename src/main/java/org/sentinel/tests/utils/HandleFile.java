@@ -27,4 +27,18 @@ public class HandleFile {
             LoggerUtil.error("Error walking the file tree: " + e.getMessage());
         }
     }
+
+    // Method to delete a single file
+    public static void deleteFile(Path filePath) {
+        try {
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+                LoggerUtil.info("File deleted successfully: " + filePath);
+            } else {
+                LoggerUtil.warning("File not found: " + filePath);
+            }
+        } catch (IOException e) {
+            LoggerUtil.error("Unable to delete file " + filePath + ": " + e.getMessage());
+        }
+    }
 }

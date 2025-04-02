@@ -1,6 +1,6 @@
 package org.sentinel.tests.common;
 
-import org.sentinel.tests.utils.AllureLogUtil;
+import org.sentinel.tests.reports.AllureLogUtil;
 import org.testng.asserts.IAssert;
 import org.testng.asserts.SoftAssert;
 

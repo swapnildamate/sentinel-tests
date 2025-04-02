@@ -3,7 +3,7 @@ package org.sentinel.tests.testng;
 import org.openqa.selenium.WebDriver;
 import org.sentinel.tests.common.LoggerUtil;
 import org.sentinel.tests.utils.ExcelUtil;
-import org.sentinel.tests.utils.ScreenshotUtil;
+import org.sentinel.tests.reports.ScreenshotUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -46,7 +46,7 @@ public class TestNGListener implements ITestListener {
         List<Map<String, String>> testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
         if (testCasesResultMap != null) {
             String resultExcelPath = (String) context.getAttribute("resultExcelPath");
-            ExcelUtil.addTestCases(testCasesResultMap);
+            //ExcelUtil.addTestCases(testCasesResultMap);
         }
     }
 

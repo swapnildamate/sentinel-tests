@@ -1,8 +1,10 @@
 package org.sentinel.tests.common;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.sentinel.tests.enums.BrowserType;
 import org.sentinel.tests.enums.OSType;
+import org.sentinel.tests.reports.PDFReport;
 import org.sentinel.tests.testng.TestNGParamStore;
 import org.sentinel.tests.ui.common.WebDriverManager;
 import org.sentinel.tests.ui.common.pageObject.LoginPage;
@@ -40,12 +42,17 @@ public class BaseTest {
         HandleFile.deleteDir(allure_results);
         Path excel_report = Paths.get("reports/excel-report");
         HandleFile.deleteDir(excel_report);
+        Path pdf_report = Paths.get("reports/pdf-report");
+        HandleFile.deleteDir(pdf_report);
+        Path app_log = Paths.get("app.log");
+        HandleFile.deleteFile(app_log);
         ExcelUtil.createExcelFile();
     }
 
     /*
      * This is used for open the browser.
      */
+    @Step
     @BeforeClass
     public void openBrowser(ITestContext context) {
         TestNGParamStore.loadParameters(context);
@@ -66,6 +73,11 @@ public class BaseTest {
         loginPage = new LoginPage(driver);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+
+    }
+
     /**
      * This is used for close the browser.
      */
@@ -76,10 +88,11 @@ public class BaseTest {
 
     @AfterSuite(alwaysRun = true)
     public void pushResultData() {
-        driver.close();
-        WebDriverManager.quitDriver();
+//        driver.close();
+//        WebDriverManager.quitDriver();
         if (!testCasesResultMap.isEmpty()) {
             ExcelUtil.addTestCases(testCasesResultMap);
         }
+        PDFReport.generatePDF();
     }
 }
