@@ -78,9 +78,9 @@ jobs:
         shell: pwsh
         if: always()
         run: |
-          $allureResultsPath = (Resolve-Path reports/allure-results).Path
-          $allureHistoryPath = (Resolve-Path feature-1/allure-history).Path
-          allure generate $allureResultsPath --clean -o $allureHistoryPath
+          allureResultsPath = (Resolve-Path reports/allure-results).Path
+          allure_history = (Resolve-Path feature-1/allure-history).Path
+          allure generate allureResultsPath --clean -o allure_history
 
       # Step 10: Publish Test Report
       - name: Publish test report
