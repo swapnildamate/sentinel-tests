@@ -1,4 +1,4 @@
-name: On Code Push Any Branch
+name: Run test on PR merge
 on:
   push:
     branches:
@@ -12,6 +12,8 @@ jobs:
       # Step 1: Checkout the code
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full history for gh-pages
 
       # Step 2: Set up JDK 17 using Adoptium (Temurin)
       - name: Set up JDK 17
@@ -56,27 +58,28 @@ jobs:
           name: test-results
           path: |
             target/
-            allure-report/
+            allure-results/
             reports/
           retention-days: 2  # Adjust retention as needed
 
-      # Step 8: Load Test Report History
+      # Step 8: Load Test Report History (Ensure correct branch fetching)
       - name: Load test report history
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
+          fetch-depth: 0
 
       # Step 9: Build Test Report
       - name: Build test report
-        uses: simple-elf/allure-report-action@v1.7
+        shell: pwsh
         if: always()
-        with:
-          gh_pages: gh-pages
-          allure_history: allure-history
-          allure_results: build/allure-results
+        run: |
+          $allureResultsPath = (Resolve-Path allure-results).Path
+          $allureHistoryPath = (Resolve-Path gh-pages/allure-history).Path
+          allure generate $allureResultsPath --clean -o $allureHistoryPath
 
       # Step 10: Publish Test Report
       - name: Publish test report
@@ -85,4 +88,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: gh-pages/allure-history
