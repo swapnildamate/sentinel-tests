@@ -1,6 +1,7 @@
----
+# GitHub Actions Integration With Allure.
 
+---
 > [!TIP]
-> Naviage to [GitHub Actions integration](documentation/integhaallure.md).
+> Naviage to [Home](README.md).
 
 ---
