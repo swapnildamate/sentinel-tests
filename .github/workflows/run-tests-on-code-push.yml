@@ -37,13 +37,13 @@ jobs:
           echo $allurePath | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
       # Step 5: Cache Maven dependencies to speed up the build process
-#      - name: Cache Maven dependencies
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.m2/repository
-#          key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
-#          restore-keys: |
-#            ${{ runner.os }}-maven-
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       # Step 6: Run Tests
       - name: Run Tests

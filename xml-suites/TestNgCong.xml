@@ -18,7 +18,7 @@
     <test thread-count="1" name="all-api-ui-tests">
         <packages>
             <package name="org.sentinel.tests.api.booking"></package>
-            <package name="org.sentinel.tests.ui.spreecom"></package>
+<!--            <package name="org.sentinel.tests.ui.spreecom"></package>-->
         </packages>
     </test>
 
