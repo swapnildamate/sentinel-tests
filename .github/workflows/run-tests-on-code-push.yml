@@ -55,7 +55,7 @@ jobs:
       - name: Build test report
         if: always()
         run: |
-          allure generate $GITHUB_WORKSPACE/results/allure-results --clean
+          allure generate $GITHUB_WORKSPACE/reports/allure-results --clean
 
       # Step 11: Publish Test Report
       - name: Publish test report
