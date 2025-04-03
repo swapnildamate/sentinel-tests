@@ -15,43 +15,11 @@
     </listeners>
 
     <!-- run all tests -->
-<!--    <test name="all-api-ui-tests">-->
-<!--        <packages>-->
-<!--            <package name="org.sentinel.tests.api"></package>-->
-<!--            <package name="org.sentinel.tests.ui"></package>-->
-<!--        </packages>-->
-<!--    </test>-->
-
-<!--    &lt;!&ndash; run all api tests &ndash;&gt;-->
-<!--    <test name="all-api-tests">-->
-<!--        <packages>-->
-<!--            <package name="org.sentinel.tests.api"></package>-->
-<!--        </packages>-->
-<!--    </test>-->
-
-<!--    &lt;!&ndash; run all ui tests &ndash;&gt;-->
-<!--    <test name="all-ui-tests">-->
-<!--        <packages>-->
-<!--            <package name="org.sentinel.tests.ui"></package>-->
-<!--        </packages>-->
-<!--    </test>-->
-
-<!--    &lt;!&ndash; run particular test class &ndash;&gt;-->
-<!--    <test name="class-tests">-->
-<!--        <classes>-->
-<!--            <class name="org.sentinel.tests.ui.spreecom.LogoutTest"></class>-->
-<!--        </classes>-->
-<!--    </test>-->
-
-    <!-- run particular test method -->
-    <test name="method-tests">
-        <classes>
-            <class name="org.sentinel.tests.api.booking.T0201">
-                <methods>
-                    <include name="getBookingsIds"></include>
-                </methods>
-            </class>
-        </classes>
+    <test thread-count="1" name="all-api-ui-tests">
+        <packages>
+            <package name="org.sentinel.tests.api.booking"></package>
+            <package name="org.sentinel.tests.ui.spreecom"></package>
+        </packages>
     </test>
 
 </suite> <!-- Suite Parent-->

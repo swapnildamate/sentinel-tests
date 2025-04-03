@@ -166,9 +166,8 @@ reports in the following directory:
 - **Excel Report**: Open the `.xlsx` file in the `excel-report` folder to analyze test data.
 - **PDF Report**: Open the `.pdf` file in the `pdf-report` folder for a summarized test execution report.
 - **View Online via GitHub Pages** The reports are also hosted on **GitHub Pages** for easy access. Click the link below
-  to view the latest Allure report online: *
-  *[View Test Report on GitHub Pages](https://your-github-username.github.io/your-repository-name/allure-report/index.html)
-  **
+  to view the latest Allure report online:**[View Test Report on GitHub Pages](https://swapnildamate.github.io/sentinel-tests/)**
+ 
 
 ---
 
