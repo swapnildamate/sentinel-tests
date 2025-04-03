@@ -1,4 +1,4 @@
-name: Run test on PR merge
+name: On Code Push Any Branch
 on:
   push:
     branches:
@@ -36,7 +36,7 @@ jobs:
           }
           echo $allurePath | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
-       # Step 5: Cache Maven dependencies to speed up the build process
+      # Step 5: Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -49,8 +49,6 @@ jobs:
       - name: Run Tests
         run: mvn clean test verify
 
-      # Step
-
       # Step 7: Upload Test Results and Reports as Artifacts
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -61,3 +59,30 @@ jobs:
             allure-report/
             reports/
           retention-days: 2  # Adjust retention as needed
+
+      # Step 8: Load Test Report History
+      - name: Load test report history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      # Step 9: Build Test Report
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: build/allure-results
+
+      # Step 10: Publish Test Report
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
