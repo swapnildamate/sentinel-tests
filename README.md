@@ -7,7 +7,7 @@ Guardian of software quality.
 ## Overview
 
 This is a **Java-based Automation Framework** for testing **REST APIs** and **Web UI applications**. It uses **Selenium
-WebDriver** for UI automation and **RestAssured** for API testing, along with **TestNG/JUnit** for test execution and *
+WebDriver** for UI automation and **RestAssured** for API testing, along with **TestNG** for test execution and *
 *Allure, Excel, PDF** for reporting. Once the test execution is completed, an **Email** will be trigger.
 
 ---
@@ -196,6 +196,7 @@ performance.
 
 You can integrate the framework with **GitHub Actions, or GitLab CI/CD** by adding a
 `.github/workflows/*.yml`.
+
 ---
 
 ## Contributing
