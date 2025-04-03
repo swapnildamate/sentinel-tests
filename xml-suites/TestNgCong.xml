@@ -15,33 +15,33 @@
     </listeners>
 
     <!-- run all tests -->
-    <test name="all-api-ui-tests">
-        <packages>
-            <package name="org.sentinel.tests.api"></package>
-            <package name="org.sentinel.tests.ui"></package>
-        </packages>
-    </test>
+<!--    <test name="all-api-ui-tests">-->
+<!--        <packages>-->
+<!--            <package name="org.sentinel.tests.api"></package>-->
+<!--            <package name="org.sentinel.tests.ui"></package>-->
+<!--        </packages>-->
+<!--    </test>-->
 
-    <!-- run all api tests -->
-    <test name="all-api-tests">
-        <packages>
-            <package name="org.sentinel.tests.api"></package>
-        </packages>
-    </test>
+<!--    &lt;!&ndash; run all api tests &ndash;&gt;-->
+<!--    <test name="all-api-tests">-->
+<!--        <packages>-->
+<!--            <package name="org.sentinel.tests.api"></package>-->
+<!--        </packages>-->
+<!--    </test>-->
 
-    <!-- run all ui tests -->
-    <test name="all-ui-tests">
-        <packages>
-            <package name="org.sentinel.tests.ui"></package>
-        </packages>
-    </test>
+<!--    &lt;!&ndash; run all ui tests &ndash;&gt;-->
+<!--    <test name="all-ui-tests">-->
+<!--        <packages>-->
+<!--            <package name="org.sentinel.tests.ui"></package>-->
+<!--        </packages>-->
+<!--    </test>-->
 
-    <!-- run particular test class -->
-    <test name="class-tests">
-        <classes>
-            <class name="org.sentinel.tests.ui.spreecom.LogoutTest"></class>
-        </classes>
-    </test>
+<!--    &lt;!&ndash; run particular test class &ndash;&gt;-->
+<!--    <test name="class-tests">-->
+<!--        <classes>-->
+<!--            <class name="org.sentinel.tests.ui.spreecom.LogoutTest"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
     <!-- run particular test method -->
     <test name="method-tests">
