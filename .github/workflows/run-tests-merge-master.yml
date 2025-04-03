@@ -1,8 +1,8 @@
-name: Run test on PR merge
+name: Run test on PR merge on MASTER
 on:
   push:
     branches:
-      - 'abc'
+      - master
 
 jobs:
   build_and_deploy:
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Step 2: Set up JDK 17 using Adoptium (Temurin)
+      # Step 2: Set up JDK 17 using corretto
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -54,12 +54,13 @@ jobs:
       - name: Run Tests
         run: mvn clean test verify
 
+      # Step 7 Generate allure report
       - name: Generate Allure Report (Windows)
         run: |
           allure generate "%GITHUB_WORKSPACE%\reports\allure-results" --clean -o "%GITHUB_WORKSPACE%\allure-history"
         shell: cmd
 
-      # Step 8: Publish Test Report
+      # Step 8: Publish Test Report on Git-Hub pages.
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
@@ -77,4 +78,4 @@ jobs:
             target/
             allure-report/
             reports/
-          retention-days: 2  # Adjust retention as needed
+          retention-days: 5  # Adjust retention as needed
