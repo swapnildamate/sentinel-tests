@@ -34,6 +34,7 @@ jobs:
           $env:Path += ";C:\allure\bin"
           Get-ChildItem -Path "C:\allure\bin"
           allure --version
+
           
           # Step 5: Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
