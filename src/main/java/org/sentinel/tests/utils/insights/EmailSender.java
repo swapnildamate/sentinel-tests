@@ -50,7 +50,7 @@ public class EmailSender {
                     + summaryContent
                     + "<p>Please find the attached test reports.</p>"
                     + "<p>Best Regards.</p>"  // Fixed incorrect <br> tag
-                    + "<p><strong style='margin-top: 1px;'><em>Sentinel Tests</em></strong></p>"
+                    + "<span><strong style='margin-top: 1px;'><em>Sentinel Tests</em></strong></span>"
                     + "</body></html>";
             messageBodyPart.setContent(emailContent, "text/html");
 

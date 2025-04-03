@@ -61,36 +61,89 @@ jobs:
             allure-results/
           retention-days: 2
 
-      # Step 8: Load Previous Test Report History Without Overwriting (Fixed)
-      - name: Load test report history
+name: On Code Push In Any Branch.
+on:
+  push:
+    branches:
+      - '*'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the main code
+      - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full history for gh-pages
+
+      # Step 2: Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Step 3: Install Maven
+      - name: Install Maven
+        run: sudo apt-get update && sudo apt-get install -y maven
+
+      # Step 4: Install Allure CLI
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget -O allure.tgz https://github.com/allure-framework/allure2/releases/download/2.21.0/allure-2.21.0.tgz
+          tar -zxvf allure.tgz
+          sudo mv allure-2.21.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
+          allure --version  # Verify installation
+
+      # Step 5: Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Step 6: Run Tests
+      - name: Run Tests
+        run: mvn clean test verify
+
+      # Step 7: Upload Test Results
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            target/
+            allure-results/
+          retention-days: 2
+
+      - name: Load test report history
+        uses: actions/checkout@v3
         if: always()
         continue-on-error: true
         with:
-          ref: report
-          path: temp-report  # Temporary directory
-          fetch-depth: 0
+                  ref: gh-pages
+                  path: gh-pages
 
-      # Step 9: Move previous history to correct location
-      - name: Restore previous Allure history
-        if: always()
-        run: |
-          mkdir -p allure-history
-          if [ -d temp-report/allure-history ]; then
-            cp -r temp-report/allure-history/* allure-history/
-          fi
-
-      # Step 10: Build Test Report
       - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
         if: always()
-        run: |
-          allure generate results/allure-results --clean -o allure-history
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: results/allure-results
 
-      # Step 11: Publish Test Report
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: report
+          publish_branch: gh-pages
           publish_dir: allure-history
