@@ -78,9 +78,9 @@ jobs:
         shell: pwsh
         if: always()
         run: |
-          allureResultsPath = (Resolve-Path reports/allure-results).Path
-          allure_history = (Resolve-Path feature-1/allure-history).Path
-          allure generate allureResultsPath --clean -o allure_history
+          $allureResultsPath = (Resolve-Path reports/allure-results).Path
+          $allureHistoryPath = (Resolve-Path feature-1/allure-history).Path
+          allure generate $allureResultsPath --clean -o $allureHistoryPath
 
       # Step 10: Publish Test Report
       - name: Publish test report
@@ -88,5 +88,5 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: f
+          publish_branch: feature-1
           publish_dir: feature-1/allure-history
