@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu Apr 03 10:02:39 UTC 2025","Thu Apr 03 10:02:40 UTC 2025","1485","sentinel-tests","ui-login-feature","org.sentinel.tests.api.booking.T0201","org.sentinel.tests.api.booking.T0201","getToken","getToken","Verify user able to get access token."
