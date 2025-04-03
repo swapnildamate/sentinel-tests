@@ -1,1 +1,1 @@
-{"uid":"b1a8273437954620fa374b796ffaacdd","name":"behaviors","children":[]}
+{"uid":"b1a8273437954620fa374b796ffaacdd","name":"behaviors","children":[{"name":"getToken","uid":"cc8bea3e379f2bc0","parentUid":"b1a8273437954620fa374b796ffaacdd","status":"passed","time":{"start":1743668846232,"stop":1743668848110,"duration":1878},"flaky":false,"newFailed":false,"newPassed":false,"newBroken":false,"retriesCount":0,"retriesStatusChange":false,"parameters":["https://demo.spreecommerce.org/","https://restful-booker.herokuapp.com/","chrome","windows"],"tags":[]}]}
