@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - '*'
-    workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   build_and_deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       # Step 1: Checkout the code
@@ -21,23 +21,17 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'corretto'
+          distribution: 'temurin'
 
-      # Step 3: Install Maven (Windows)
+      # Step 3: Install Maven
       - name: Install Maven
-        run: choco install maven -y
+        run: sudo apt-get update && sudo apt-get install -y maven
 
-      # Step 4: Install Allure (Windows)
+      # Step 4: Install Allure
       - name: Install Allure
         run: |
-          iwr -useb get.scoop.sh | iex
-          scoop install allure
-          $allurePath = $(scoop prefix allure) + "\bin"
-          if (-Not (Test-Path $allurePath)) {
-            Write-Host "Allure installation directory not found!"
-            exit 1
-          }
-          echo $allurePath | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          sudo apt-get update
+          sudo apt-get install -y allure
 
       # Step 5: Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
@@ -75,12 +69,9 @@ jobs:
 
       # Step 9: Build Test Report
       - name: Build test report
-        uses: simple-elf/allure-report-action@v1.7
         if: always()
-        with:
-          gh_pages: report
-          allure_history: allure-history
-          allure_results: results/allure-results
+        run: |
+          allure generate reports/allure-results --clean -o report/allure-history
 
       # Step 10: Publish Test Report
       - name: Publish test report
@@ -89,4 +80,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: report
-          publish_dir: allure-history
+          publish_dir: report/allure-history
