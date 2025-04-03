@@ -48,8 +48,7 @@ public class EmailSender {
                     + "<h3>Test Execution Summary:</h3>"
                     + summaryContent
                     + "<p>Please find the attached test reports.</p>"
-                    + "<p>Best regards.</p>"
-                    + "<p style='margin-top: 5px;'><strong><em>Sentinel Tests</em></strong></p></body></html>";
+                    + "<p>Best Regards.</br><strong style='margin-top: 1px;'><em> Sentinel Tests</em></strong></p></body></html>";
             messageBodyPart.setContent(emailContent, "text/html");
 
             // Attachments
