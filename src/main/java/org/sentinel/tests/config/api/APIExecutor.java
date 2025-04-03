@@ -3,7 +3,7 @@ package org.sentinel.tests.config.api;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 import java.util.Map;
 
@@ -19,18 +19,18 @@ public class APIExecutor {
     }
 
     private static void logResponse(Response response) {
-        Logger.info("================= RESPONSE START =================");
-        Logger.info(String.format("Status Code: %s", (response.getStatusCode())));
+        LoggerUtil.info("================= RESPONSE START =================");
+        LoggerUtil.info(String.format("Status Code: %s", (response.getStatusCode())));
         // Log headers in a readable format
-        Logger.info("Headers:");
-        response.getHeaders().forEach(header -> Logger.info(String.format("Header Name: %s Value: %s", header.getName(), header.getValue())));
+        LoggerUtil.info("Headers:");
+        response.getHeaders().forEach(header -> LoggerUtil.info(String.format("Header Name: %s Value: %s", header.getName(), header.getValue())));
         try {
             String prettyBody = response.getBody().asPrettyString();
-            Logger.info(String.format("Response Body: %s", prettyBody.toString()));
+            LoggerUtil.info(String.format("Response Body: %s", prettyBody.toString().replaceAll("\\s+", " ")));
         } catch (Exception e) {
-            Logger.warning(String.format("Failed to pretty-print response body. Raw Body: %s", response.getBody().asString()));
+            LoggerUtil.warning(String.format("Failed to pretty-print response body. Raw Body: %s", response.getBody().asString()));
         }
-        Logger.info("================= RESPONSE END =================");
+        LoggerUtil.info("================= RESPONSE END =================");
     }
 
     static Response post(String path, Map<String, String> headers, String body) {

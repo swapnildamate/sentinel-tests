@@ -4,7 +4,7 @@ import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.sentinel.tests.base.BaseAPIService;
 import org.sentinel.tests.utils.JsonUtil;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
@@ -21,13 +21,13 @@ public class T0201 extends BaseAPIService {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
 
         String endpointPost = JsonUtil.getDataByIdAndKey(dataFile, "booking.getAuth", "post.CreateToken").toString();
         String reqBody = JsonUtil.getDataByIdAndKey(dataFile, "booking.getAuth", "reqBody").toString();
 
         //Step 1 Started
-        Logger.info("Step 1: Started.....");
+        LoggerUtil.info("Step 1: Started.....");
         response = bookingService.getToken(endpointPost, reqBody);
         assertLog.assertTrue(response.getStatusCode()==200,"Step 1 : Access token generated successfully.","Step 1 : User un-authorized.");
 
@@ -42,15 +42,15 @@ public class T0201 extends BaseAPIService {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
 
         String endpointGet = JsonUtil.getDataByIdAndKey(dataFile, "booking.geBookingIds", "get.BookingId").toString();
 
         //Step 1 Started
-        Logger.info("Step 1: Started.....");
+        LoggerUtil.info("Step 1: Started.....");
         response = bookingService.getBookingIds(endpointGet);
-        assertLog.assertTrue(response.getStatusCode()==200,"Step 1 : Booking Ids displayed.","Step 1 : Booking Ids not displayed.");
-
+        assertLog.assertTrue(response.getStatusCode()==2003,"Step 1 : Booking Ids displayed.","Step 1 : Booking Ids not displayed.");
+        assertLog.assertString("SSD","SDSD","String paass","String fails");
         assertLog.assertAllWithLog();
     }
 }

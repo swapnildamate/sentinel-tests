@@ -2,7 +2,7 @@ package org.sentinel.tests.utils;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,12 +32,11 @@ public class ExcelUtil {
         synchronized (lock) {
             Map<String, String> dataMap = new HashMap<>();
 
-            try (FileInputStream fis = new FileInputStream(filePath);
-                 Workbook workbook = new XSSFWorkbook(fis)) {
+            try (FileInputStream fis = new FileInputStream(filePath); Workbook workbook = new XSSFWorkbook(fis)) {
 
                 Sheet sheet = workbook.getSheet(sheetName);
                 if (sheet == null) {
-                    Logger.info("Sheet not found: " + sheetName);
+                    LoggerUtil.info("Sheet not found: " + sheetName);
                     return dataMap;
                 }
 
@@ -75,31 +74,20 @@ public class ExcelUtil {
                 }
 
                 FILE_PATH_LATEST = FILE_PATH;
-                Logger.info(String.format("File Location: %s", FILE_PATH_LATEST));
+                LoggerUtil.info(String.format("File Location: %s", FILE_PATH_LATEST));
 
                 File file = new File(FILE_PATH_LATEST);
                 if (file.exists()) {
-                    Logger.info("Excel file already exists: " + FILE_PATH_LATEST);
+                    LoggerUtil.info("Excel file already exists: " + FILE_PATH_LATEST);
                     return;
                 }
 
-                try (Workbook workbook = new XSSFWorkbook();
-                     FileOutputStream fos = new FileOutputStream(FILE_PATH_LATEST)) {
-
-//                    Sheet sheet = workbook.createSheet("TestCases");
-//                    Row headerRow = sheet.createRow(0);
-//                    String[] headers = {"Sr No", "Package Name", "Method Name", "Test Case Status", "Remark"};
-//
-//                    for (int i = 0; i < headers.length; i++) {
-//                        Cell cell = headerRow.createCell(i);
-//                        cell.setCellValue(headers[i]);
-//                    }
-
+                try (Workbook workbook = new XSSFWorkbook(); FileOutputStream fos = new FileOutputStream(FILE_PATH_LATEST)) {
                     workbook.write(fos);
-                    Logger.info("Excel file created successfully: " + FILE_PATH_LATEST);
+                    LoggerUtil.info("Excel file created successfully: " + FILE_PATH_LATEST);
                 }
             } catch (IOException e) {
-                System.err.println("Error creating Excel file: " + e.getMessage());
+                LoggerUtil.error("Error creating Excel file: " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -110,13 +98,11 @@ public class ExcelUtil {
      */
     public static void addTestCase(String packageName, String methodName, String status, String remark) {
         synchronized (lock) {
-            try (FileInputStream fis = new FileInputStream(FILE_PATH_LATEST);
-                 Workbook workbook = new XSSFWorkbook(fis);
-                 FileOutputStream fos = new FileOutputStream(FILE_PATH_LATEST)) {
+            try (FileInputStream fis = new FileInputStream(FILE_PATH_LATEST); Workbook workbook = new XSSFWorkbook(fis); FileOutputStream fos = new FileOutputStream(FILE_PATH_LATEST)) {
 
                 Sheet sheet = workbook.getSheet("TestCases");
                 if (sheet == null) {
-                    Logger.info("Sheet 'TestCases' not found!");
+                    LoggerUtil.info("Sheet 'TestCases' not found!");
                     return;
                 }
 
@@ -130,7 +116,7 @@ public class ExcelUtil {
                 newRow.createCell(4).setCellValue(remark);
 
                 workbook.write(fos);
-                Logger.info("Added Test Case: " + methodName + " -> Status: " + status + ", Remark: " + remark);
+                LoggerUtil.info("Added Test Case: " + methodName + " -> Status: " + status + ", Remark: " + remark);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -230,7 +216,7 @@ public class ExcelUtil {
                 }
 
                 if (!dataAdded) {
-                    Logger.info("No valid test cases found. Skipping Excel update.");
+                    LoggerUtil.info("No valid test cases found. Skipping Excel update.");
                     return;
                 }
 
@@ -239,7 +225,7 @@ public class ExcelUtil {
 
                 fos = new FileOutputStream(FILE_PATH_LATEST);
                 workbook.write(fos);
-                Logger.info("Excel update complete!");
+                LoggerUtil.info("Excel update complete!");
 
             } catch (IOException e) {
                 e.printStackTrace();

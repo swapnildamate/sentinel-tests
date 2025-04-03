@@ -41,8 +41,8 @@ import java.util.logging.*;
  * @author Swapnil Damate
  * @version 1.0
  */
-public class Logger {
-    private static volatile java.util.logging.Logger logger;
+public class LoggerUtil {
+    private static volatile Logger logger;
     private static final Object lock = new Object();
 
     // ANSI Color Codes for Console Logs
@@ -54,7 +54,7 @@ public class Logger {
     private static final String CYAN = "\u001B[36m";
     private static final String PURPLE = "\u001B[35m";
 
-    private Logger() {
+    private LoggerUtil() {
         // Private constructor to prevent instantiation
     }
 
@@ -64,11 +64,11 @@ public class Logger {
      * 
      * @return the singleton logger instance
      */
-    public static java.util.logging.Logger getLogger() {
+    public static Logger getLogger() {
         if (logger == null) {
             synchronized (lock) {
                 if (logger == null) {
-                    logger = java.util.logging.Logger.getLogger(Logger.class.getName());
+                    logger = Logger.getLogger(LoggerUtil.class.getName());
                     setupLogger();
                 }
             }

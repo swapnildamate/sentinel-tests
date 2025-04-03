@@ -1,7 +1,7 @@
 package org.sentinel.tests.config.ui;
 
 import org.openqa.selenium.WebDriver;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 public class WebDriverManager {
 
@@ -11,7 +11,7 @@ public class WebDriverManager {
         if (driverThreadLocal.get() == null) {
             synchronized (WebDriverManager.class) { // Prevent race conditions
                 if (driverThreadLocal.get() == null) { // Double-check locking
-                    Logger.info(String.format("Thread %s - Initializing WebDriver for OS: %s, Browser: %s",
+                    LoggerUtil.info(String.format("Thread %s - Initializing WebDriver for OS: %s, Browser: %s",
                             Thread.currentThread().getId(), osType, browser));
                     driverThreadLocal.set(BrowserManager.getBrowser(browser));
                 }
@@ -25,9 +25,9 @@ public class WebDriverManager {
         if (driver != null) {
             try {
                 driver.quit();
-                Logger.info(String.format("Thread %s - WebDriver Closed.", Thread.currentThread().getId()));
+                LoggerUtil.info(String.format("Thread %s - WebDriver Closed.", Thread.currentThread().getId()));
             } catch (Exception e) {
-                Logger.error("Error while quitting WebDriver: " + e.getMessage());
+                LoggerUtil.error("Error while quitting WebDriver: " + e.getMessage());
             } finally {
                 driverThreadLocal.remove(); // Clean up to prevent memory leaks
             }

@@ -2,9 +2,11 @@ package org.sentinel.tests.utils.insights;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PDFReport {
 
@@ -14,7 +16,7 @@ public class PDFReport {
 
     public static void generatePDF() {
         try {
-            Logger.info("PDF Report Generate Started.....");
+            LoggerUtil.info("PDF Report Generate Started.....");
 
             File directory = new File(pdfFilePath);
             if (!directory.exists()) {
@@ -22,14 +24,14 @@ public class PDFReport {
             }
 
             createPDFReport(logFilePath, pdfFileName);
-            Logger.info("PDF Report Generated.");
+            LoggerUtil.info("PDF Report Generated.");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private static void createPDFReport(String logFilePath, String pdfFilePath) throws Exception {
-        Document document = new Document();
+        Document document = new Document(PageSize.A3);
         PdfWriter.getInstance(document, new FileOutputStream(pdfFilePath));
         document.open();
 
@@ -39,10 +41,17 @@ public class PDFReport {
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
 
+        // Generate timestamp
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        Font timeFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+        Paragraph timeParagraph = new Paragraph("Report generated at: " + timeStamp + "\n\n", timeFont);
+        timeParagraph.setAlignment(Element.ALIGN_RIGHT);
+        document.add(timeParagraph);
+
         // Table setup
         PdfPTable table = new PdfPTable(3);
-        table.setWidthPercentage(110);
-        table.setWidths(new float[]{3, 2, 6});
+        table.setWidthPercentage(100);
+        table.setWidths(new float[]{2, 1, 6});
 
         // Add headers
         addTableHeader(table, "Timestamp", "Level", "Log Message");
@@ -110,5 +119,9 @@ public class PDFReport {
             default:
                 return BaseColor.LIGHT_GRAY;
         }
+    }
+
+    public static void main(String[] args) {
+        generatePDF();
     }
 }

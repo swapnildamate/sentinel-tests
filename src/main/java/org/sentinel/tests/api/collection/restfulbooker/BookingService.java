@@ -1,7 +1,6 @@
-package org.sentinel.tests.api.collection;
+package org.sentinel.tests.api.collection.restfulbooker;
 
 import io.restassured.response.Response;
-import org.sentinel.tests.base.BaseAPIService;
 import org.sentinel.tests.config.api.APIRequestManager;
 
 import static org.sentinel.tests.constants.APIConstants.POST;

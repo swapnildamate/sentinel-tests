@@ -1,13 +1,13 @@
-name: On Code Push In Any Branch.
+name: On Code Push In Any Branch
 on:
   push:
     branches:
-      - '*sd'
+      - '*'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
   build_and_deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       # Step 1: Checkout the main code
@@ -23,26 +23,19 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      # Step 3: Install Maven
+      # Step 3: Install Maven using Chocolatey
       - name: Install Maven
-        run: sudo apt-get update && sudo apt-get install -y maven
+        run: choco install maven -y
 
-      # Step 4: Install Allure CLI
+      # Step 4: Install Allure CLI using Chocolatey
       - name: Install Allure CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip
-          wget -O allure.tgz https://github.com/allure-framework/allure2/releases/download/2.21.0/allure-2.21.0.tgz
-          tar -zxvf allure.tgz
-          sudo mv allure-2.21.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
-          allure --version  # Verify installation
+        run: choco install allure -y
 
       # Step 5: Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.m2/repository
+          path: C:\Users\runneradmin\.m2\repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -55,9 +48,9 @@ jobs:
       - name: Build test report
         if: always()
         run: |
-          allure generate $GITHUB_WORKSPACE/reports/allure-results --clean -o allure-history
+          allure generate $env:GITHUB_WORKSPACE\reports\allure-results --clean -o allure-history
 
-      # Step 11: Publish Test Report
+      # Step 8: Publish Test Report
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
@@ -66,7 +59,7 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
 
-      # Step 7: Upload Test Re sults
+      # Step 9: Upload Test Results
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
@@ -74,4 +67,5 @@ jobs:
           path: |
             target/
             allure-results/
+            reports/
           retention-days: 2

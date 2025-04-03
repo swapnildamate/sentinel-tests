@@ -1,8 +1,8 @@
-package org.sentinel.tests.ui.login;
+package org.sentinel.tests.ui.spreecom;
 
 import io.qameta.allure.Description;
 import org.sentinel.tests.base.BaseUIService;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.testng.annotations.Test;
 
@@ -36,19 +36,19 @@ import java.util.Map;
  *
  * @author Swapnil Damate
  */
-public class T0001LoginPageTest extends BaseUIService {
+public class LoginTest extends BaseUIService {
     private boolean result;
     private String dataFile="Users.xlsx";
 
     @Test
     @Description("Verify login page.")
-    public void T0011() throws Exception {
+    public void T0101() throws Exception {
 
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
 
         //Read Test Data
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
@@ -56,79 +56,84 @@ public class T0001LoginPageTest extends BaseUIService {
         driver.get(appURL);
 
         //Step 1
-        Logger.info("Step 1: Started.....");
+        LoggerUtil.info("Step 1: Started.....");
         result = loginPage.isDisplayedAccoutButton();
         assertLog.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
         loginPage.clickOnAccount();
 
         //Step 2
-        Logger.info("Step 2: Started.....");
+        LoggerUtil.info("Step 2: Started.....");
         String pageHeader = loginPage.getPageHeader();
-        Logger.info(String.format("Actual page header is: %s", pageHeader));
-        String expectedPageHeader = "Account";
+        LoggerUtil.info(String.format("Actual page header is: %s", pageHeader));
+        String expectedPageHeader = "Login";
         assertLog.assertEquals(pageHeader, expectedPageHeader, "Step 2: Account page header matched.", "Step 2: Account page header mismatched.");
 
         //Step 3
-        Logger.info("Step 3: Started.....");
+        LoggerUtil.info("Step 3: Started.....");
         result = loginPage.isDisplayedEmailField();
         assertLog.assertTrue(result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
 
         //Step 4
-        Logger.info("Step 4: Started.....");
+        LoggerUtil.info("Step 4: Started.....");
         result = loginPage.isPasswordField();
         assertLog.assertTrue(result, "Step 4: Password field is displayed.", "Step 4: Password field is not displayed.");
+
+        //Step 5
+        LoggerUtil.info("Step 5: Started.....");
+        result = loginPage.isDisplayedRememberMeCheckbox();
+        assertLog.assertTrue(result, "Step 5: Remember Me Checkbox field is displayed.", "Step 5: Remember Me Checkbox field is not displayed.");
+
+        //Step 5
+        LoggerUtil.info("Step 6: Started.....");
+        result = loginPage.isDisplayedForgotPasswordLnk();
+        assertLog.assertTrue(result, "Step 6: Forgot Password Link is displayed.", "Step 6: Forgot Password Link is not displayed.");
+
+        //Step 5
+        LoggerUtil.info("Step 7: Started.....");
+        result = loginPage.isDisplayedSignUpLnk();
+        assertLog.assertTrue(result, "Step 7: Sign Up Link is displayed.", "Step 7: Sign Up Link is not displayed.");
 
         assertLog.assertAllWithLog();
     }
 
     @Test
     @Description("Verify user able to login into system.")
-    public void T0012() throws Exception {
+    public void T0102() throws Exception {
 
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
 
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
 
         driver.get(appURL);
 
         //Step 1
-        Logger.info("Step 1: Started.....");
+        LoggerUtil.info("Step 1: Started.....");
         result = loginPage.isDisplayedAccoutButton();
         assertLog.assertTrue(result, "Step 1: Account button is displayed.", "Step 1: Account button is not displayed.");
         loginPage.clickOnAccount();
 
         //Step 2
-        Logger.info("Step 2: Started.....");
+        LoggerUtil.info("Step 2: Started.....");
         loginPage.enterEmail(testData.get("name"));
 
         //Step 3
-        Logger.info("Step 3: Started.....");
+        LoggerUtil.info("Step 3: Started.....");
         loginPage.enterPassword(testData.get("password"));
 
         //Step 4
         loginPage.clickOnLoginButton();
 
         //Step 5
-        String actualMsg = loginPage.getSignedSuccessMsg();
-        Logger.info(String.format("Actual Msg : %s", actualMsg));
+        String actualMsg = loginPage.getLoginLogoutSuccessMsg();
+        LoggerUtil.info(String.format("Actual Msg : %s", actualMsg));
         String expectedMsg = "SIGNED IN SUCCESSFULLY.";
         assertLog.assertEquals(actualMsg, expectedMsg, "Step 5: User signed is successfully.", "Step 5: User un-authorized.");
 
         assertLog.assertAllWithLog();
-    }
-
-    @Test
-    @Description("Test Case T0003")
-    public void T0013() throws Exception {
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Method method = this.getClass().getMethod(methodName);
-        Description description = method.getAnnotation(Description.class);
-        Logger.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
     }
 
 }

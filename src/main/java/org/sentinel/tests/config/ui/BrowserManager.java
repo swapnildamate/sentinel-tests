@@ -8,14 +8,14 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 public class BrowserManager {
 
     public static WebDriver getBrowser(String browser) {
         WebDriver driver;
         try {
-            Logger.info("Initializing browser: " + browser);
+            LoggerUtil.info("Initializing browser: " + browser);
             switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
@@ -41,10 +41,10 @@ public class BrowserManager {
                 default:
                     throw new IllegalArgumentException("Unsupported browser: " + browser);
             }
-            Logger.info("Browser initialized successfully: " + browser);
+            LoggerUtil.info("Browser initialized successfully: " + browser);
             return driver;
         } catch (Exception e) {
-            Logger.error("Failed to initialize browser: " + browser + " - Error: " + e.getMessage());
+            LoggerUtil.error("Failed to initialize browser: " + browser + " - Error: " + e.getMessage());
             throw new RuntimeException("WebDriver initialization failed", e);
         }
     }

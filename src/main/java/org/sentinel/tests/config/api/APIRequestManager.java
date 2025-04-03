@@ -1,7 +1,7 @@
 package org.sentinel.tests.config.api;
 
 import io.restassured.response.Response;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,25 +16,25 @@ public class APIRequestManager {
 
     public Map<String, String> generateHeaders(String httpMethod, String token) {
         Map<String, String> headers = new HashMap<>();
-        Logger.info(String.format("Request Header Creating for %s", httpMethod));
+        LoggerUtil.info(String.format("Request Header Creating for %s", httpMethod));
         headers.put(AUTHORIZATION, BEARER + token);
-        Logger.info("Request header added: " + AUTHORIZATION + " = " + BEARER + token);
+        LoggerUtil.info("Request header added: " + AUTHORIZATION + " = " + BEARER + token);
         headers.put(ACCEPT, ACCEPT_ALL);
-        Logger.info("Request header added: " + ACCEPT + " = " + ACCEPT_ALL);
+        LoggerUtil.info("Request header added: " + ACCEPT + " = " + ACCEPT_ALL);
         switch (httpMethod.toUpperCase()) {
             case POST:
             case PUT:
             case PATCH:
                 headers.put(CONTENT_TYPE, APPLICATION_JSON);
-                Logger.info("Request header added: " + CONTENT_TYPE + " = " + APPLICATION_JSON);
+                LoggerUtil.info("Request header added: " + CONTENT_TYPE + " = " + APPLICATION_JSON);
                 break;
             case UPLOAD:
                 headers.put(CONTENT_TYPE, MULTIPART_FORMDATA);
-                Logger.info("Request header added: " + CONTENT_TYPE + " = " + MULTIPART_FORMDATA);
+                LoggerUtil.info("Request header added: " + CONTENT_TYPE + " = " + MULTIPART_FORMDATA);
                 break;
             default:
                 // No headers added for GET & DELETE
-                Logger.info(String.format("No additional headers added for HTTP method : %s", httpMethod));
+                LoggerUtil.info(String.format("No additional headers added for HTTP method : %s", httpMethod));
                 break;
         }
         return headers;
@@ -42,21 +42,21 @@ public class APIRequestManager {
 
     public Map<String, String> generateHeaders(String httpMethod) {
         Map<String, String> headers = new HashMap<>();
-        Logger.info(String.format("Request Header Creating for %s", httpMethod));
+        LoggerUtil.info(String.format("Request Header Creating for %s", httpMethod));
         switch (httpMethod.toLowerCase()) {
             case POST:
             case PUT:
             case PATCH:
                 headers.put(CONTENT_TYPE, APPLICATION_JSON);
-                Logger.info("Request header added: " + CONTENT_TYPE + " = " + APPLICATION_JSON);
+                LoggerUtil.info("Request header added: " + CONTENT_TYPE + " = " + APPLICATION_JSON);
                 break;
             case UPLOAD:
                 headers.put(CONTENT_TYPE, MULTIPART_FORMDATA);
-                Logger.info("Request header added: " + CONTENT_TYPE + " = " + MULTIPART_FORMDATA);
+                LoggerUtil.info("Request header added: " + CONTENT_TYPE + " = " + MULTIPART_FORMDATA);
                 break;
             default:
                 // No headers added for GET & DELETE
-                Logger.info(String.format("No additional headers added for HTTP method : %s", httpMethod));
+                LoggerUtil.info(String.format("No additional headers added for HTTP method : %s", httpMethod));
                 break;
         }
         return headers;

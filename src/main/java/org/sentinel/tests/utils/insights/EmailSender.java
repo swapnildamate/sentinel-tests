@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class EmailSender {
-    private static final String HOST = "smtp.gmail.com"; // Replace with actual SMTP host
-    private static final String USERNAME = "swapnildamate@gmail.com";
-    private static final String PASSWORD = "bzdr fspc wdmq qnil";
-    private static final String RECIPIENT = "damateswapnil@gmail.com";
+    private static final String HOST = System.getenv("SMTP_HOST");
+    private static final String USERNAME = System.getenv("SMTP_USERNAME");
+    private static final String PASSWORD = System.getenv("SMTP_PASSWORD");
+    private static final String RECIPIENT = System.getenv("SMTP_RECIPIENT");
 
     public static void sendEmailWithReport() {
 

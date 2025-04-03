@@ -1,7 +1,7 @@
 package org.sentinel.tests.utils.testng;
 
 import org.openqa.selenium.WebDriver;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.insights.TakeScreenshot;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.testng.ITestContext;
@@ -17,25 +17,33 @@ public class ITestListeners implements ITestListener {
     @Override
     public void onStart(ITestContext context) {
         ITestListener.super.onStart(context);
-        Logger.info("********** Test Execution Started.....**********");
+        LoggerUtil.info("********** Test Execution Started.....**********");
+    }
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        LoggerUtil.info("********** Test Started.....**********");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
         addTestResult(result, "Pass", "Test executed successfully");
+        LoggerUtil.info("********** Test Passed. **********");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
+
         ITestContext context = result.getTestContext();
         driver = (WebDriver) context.getAttribute("driver");
         if (driver != null) {
             TakeScreenshot.captureScreenshot(driver);
-            Logger.info("Screenshot not captured.");// Capture screenshot
+            LoggerUtil.info("Screenshot not captured.");// Capture screenshot
         } else {
-            Logger.warning("Driver is null. Screenshot not captured.");
+            LoggerUtil.warning("Driver is null. Screenshot not captured.");
         }
         addTestResult(result, "Fail", result.getThrowable() != null ? result.getThrowable().getMessage() : "No error message");
+        LoggerUtil.info("********** Test Fail. **********");
     }
 
     @Override
@@ -45,12 +53,11 @@ public class ITestListeners implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
-        Logger.info("********** Test Execution Completed.....**********");
         testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
-        Logger.warning(testCasesResultMap.toString());
         if (!testCasesResultMap.isEmpty()) {
             ExcelUtil.addTestCases(testCasesResultMap);
         }
+        LoggerUtil.info("********** Test Execution Completed.....**********");
     }
 
     private void addTestResult(ITestResult result, String status, String remark) {
@@ -70,9 +77,9 @@ public class ITestListeners implements ITestListener {
         String packageName = "Adhoc"; // Default if no package is found
         if (lastDotIndex != -1) {
             packageName = fullClassName.substring(0, lastDotIndex);
-            Logger.info("Package Name: " + packageName);
+            LoggerUtil.info("Package Name: " + packageName);
         } else {
-            Logger.info("No package found. Class might be in the default package.");
+            LoggerUtil.info("No package found. Class might be in the default package.");
         }
 
         // Create test result entry
@@ -86,7 +93,6 @@ public class ITestListeners implements ITestListener {
         synchronized (testCasesResultMap) {
             testCasesResultMap.add(resultMap);
         }
-        Logger.info("Test Result Added: " + resultMap);
+        LoggerUtil.info("Test Result Added: " + resultMap);
     }
-
 }

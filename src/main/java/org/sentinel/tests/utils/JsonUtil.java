@@ -4,7 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 import java.io.File;
 import java.io.FileReader;
@@ -21,10 +21,10 @@ public class JsonUtil {
         JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(filePath)) {
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
-            Logger.info("JSON loaded successfully from " + filePath);
+            LoggerUtil.info("JSON loaded successfully from " + filePath);
             return jsonArray;
         } catch (IOException | ParseException e) {
-            Logger.error("Error loading JSON: " + e.getMessage());
+            LoggerUtil.error("Error loading JSON: " + e.getMessage());
         }
         return new JSONArray();
     }
@@ -34,11 +34,11 @@ public class JsonUtil {
         for (Object obj : jsonArray) {
             JSONObject jsonObject = (JSONObject) obj;
             if ((long) jsonObject.get("id") == id) {
-                Logger.info("Retrieved value for ID " + id + ", Key: " + key);
+                LoggerUtil.info("Retrieved value for ID " + id + ", Key: " + key);
                 return jsonObject.get(key);
             }
         }
-        Logger.warning("Key not found for ID " + id + ": " + key);
+        LoggerUtil.warning("Key not found for ID " + id + ": " + key);
         return null;
     }
 
@@ -48,11 +48,11 @@ public class JsonUtil {
             JSONObject jsonObject = (JSONObject) obj;
             if ((long) jsonObject.get("id") == id) {
                 jsonObject.put(key, newValue);
-                Logger.info("Updated ID " + id + ", Key: " + key + " -> " + newValue);
+                LoggerUtil.info("Updated ID " + id + ", Key: " + key + " -> " + newValue);
                 return;
             }
         }
-        Logger.warning("Failed to update: ID " + id + " not found.");
+        LoggerUtil.warning("Failed to update: ID " + id + " not found.");
     }
 
     // Write updated JSON back to the file
@@ -60,9 +60,9 @@ public class JsonUtil {
         try (FileWriter file = new FileWriter(FILE_PATH)) {
             file.write(jsonArray.toJSONString());
             file.flush();
-            Logger.info("JSON file updated successfully!");
+            LoggerUtil.info("JSON file updated successfully!");
         } catch (IOException e) {
-            Logger.error("Error saving JSON: " + e.getMessage());
+            LoggerUtil.error("Error saving JSON: " + e.getMessage());
         }
     }
 

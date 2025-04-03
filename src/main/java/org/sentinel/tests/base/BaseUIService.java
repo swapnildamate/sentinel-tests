@@ -1,13 +1,14 @@
 package org.sentinel.tests.base;
 
 import org.openqa.selenium.WebDriver;
+import org.sentinel.tests.ui.pom.MyAccountPage;
 import org.sentinel.tests.utils.testng.AssertLog;
 import org.sentinel.tests.enums.BrowserType;
 import org.sentinel.tests.enums.OSType;
 import org.sentinel.tests.utils.insights.PDFReport;
 import org.sentinel.tests.utils.testng.ReadTestNG;
 import org.sentinel.tests.config.ui.WebDriverManager;
-import org.sentinel.tests.ui.pages.LoginPage;
+import org.sentinel.tests.ui.pom.LoginPage;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.sentinel.tests.utils.FileUtil;
 import org.testng.ITestContext;
@@ -33,6 +34,7 @@ public class BaseUIService {
     protected List<Map<String, String>> testCasesResultMap = new ArrayList<>();
 
     protected LoginPage loginPage;
+    protected MyAccountPage myAccountPage;
 
     @BeforeSuite(alwaysRun = true)
     public void cleanUpPreviousData() {
@@ -70,6 +72,7 @@ public class BaseUIService {
 
         //init page object
         loginPage = new LoginPage(driver);
+        myAccountPage=new MyAccountPage(driver);
     }
 
     @AfterMethod(alwaysRun = true)

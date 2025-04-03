@@ -1,6 +1,6 @@
 package org.sentinel.tests.utils;
 
-import org.sentinel.tests.utils.log.Logger;
+import org.sentinel.tests.utils.log.LoggerUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +18,14 @@ public class FileUtil {
                     .forEach(path -> {
                         try {
                             Files.delete(path);
+                            LoggerUtil.info("Path deleted: " + path);
                         } catch (IOException e) {
-                            Logger.warning("Unable to delete " + path + ": " + e.getMessage());
+                            LoggerUtil.warning("Unable to delete " + path + ": " + e.getMessage());
                         }
                     });
-            Logger.info("Directory deleted successfully.");
+            LoggerUtil.info("Directory deleted successfully.");
         } catch (IOException e) {
-            Logger.error("Error walking the file tree: " + e.getMessage());
+            LoggerUtil.error("Error walking the file tree: " + e.getMessage());
         }
     }
 
@@ -33,12 +34,12 @@ public class FileUtil {
         try {
             if (Files.exists(filePath)) {
                 Files.delete(filePath);
-                Logger.info("File deleted successfully: " + filePath);
+                LoggerUtil.info("File deleted successfully: " + filePath);
             } else {
-                Logger.warning("File not found: " + filePath);
+                LoggerUtil.warning("File not found: " + filePath);
             }
         } catch (IOException e) {
-            Logger.error("Unable to delete file " + filePath + ": " + e.getMessage());
+            LoggerUtil.error("Unable to delete file " + filePath + ": " + e.getMessage());
         }
     }
 }

@@ -1,6 +1,6 @@
 package org.sentinel.tests.base;
 
-import org.sentinel.tests.api.collection.BookingService;
+import org.sentinel.tests.api.collection.restfulbooker.BookingService;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.sentinel.tests.utils.FileUtil;
 import org.sentinel.tests.utils.insights.PDFReport;
