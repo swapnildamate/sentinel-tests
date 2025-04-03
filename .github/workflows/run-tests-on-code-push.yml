@@ -78,7 +78,7 @@ jobs:
         with:
           gh_pages: gh-pages
           allure_history: gh-pages/allure-history
-          allure_results: feature-1/results/allure-results
+          allure_results: results/allure-results
 
       # Step 10: Publish test report
       - name: Publish Test Report
