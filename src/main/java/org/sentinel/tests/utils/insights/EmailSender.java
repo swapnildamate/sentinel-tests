@@ -4,13 +4,14 @@ import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class EmailSender {
- private static final String HOST = "smtp.gmail.com"; // Replace with actual SMTP host
+    private static final String HOST = "smtp.gmail.com"; // Replace with actual SMTP host
     private static final String USERNAME = "swapnildamate@gmail.com";
     private static final String PASSWORD = "bzdr fspc wdmq qnil";
     private static final String RECIPIENT = "damateswapnil@gmail.com";
@@ -48,8 +49,9 @@ public class EmailSender {
                     + "<h3>Test Execution Summary:</h3>"
                     + summaryContent
                     + "<p>Please find the attached test reports.</p>"
-                    + "<p>Best Regards.</br>"
-                    + "<strong style='margin-top: 1px;'><em> Sentinel Tests</em></strong></p></body></html>";
+                    + "<p>Best Regards.</p>"  // Fixed incorrect <br> tag
+                    + "<p><strong style='margin-top: 1px;'><em>Sentinel Tests</em></strong></p>"
+                    + "</body></html>";
             messageBodyPart.setContent(emailContent, "text/html");
 
             // Attachments

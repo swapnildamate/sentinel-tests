@@ -77,7 +77,7 @@ jobs:
         if: always()
         run: |
           mkdir -p allure-history
-          allure generate results/allure-results --clean -o allure-history
+          allure generate reports/allure-results --clean -o allure-history
 
       # Step 10: Publish Test Report (Fixed Path)
       - name: Publish test report
