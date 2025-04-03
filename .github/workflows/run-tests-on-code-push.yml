@@ -26,7 +26,10 @@ jobs:
 
       # Step 4: Install Allure (Windows)
       - name: Install Allure
-        run: choco install allure -y
+        run: |
+             Invoke-WebRequest -Uri "https://github.com/allure-framework/allure2/releases/download/2.21.0/allure-2.21.0.zip" -OutFile "allure.zip"
+             Expand-Archive -Path allure.zip -DestinationPath "C:\allure"
+             echo "C:\allure\bin" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
       # Step 5: Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
