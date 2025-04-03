@@ -1,5 +1,4 @@
-name: On Code Push In Any Branch
-
+name: On Code Push In Any Branch.
 on:
   push:
     branches:
@@ -52,6 +51,21 @@ jobs:
       - name: Run Tests
         run: mvn clean test verify
 
+      # Step 7: Build Test Report
+      - name: Build test report
+        if: always()
+        run: |
+          allure generate feature-1/results/allure-results --clean
+
+      # Step 11: Publish Test Report
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: report
+          publish_dir: allure-history
+
       # Step 7: Upload Test Results
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -61,30 +75,3 @@ jobs:
             target/
             allure-results/
           retention-days: 2
-
-      # Step 8: Load test report history
-      - name: Load Test Report History
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
-      # Step 9: Build test report
-      - name: Build Test Report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          gh_pages: gh-pages
-          allure_history: gh-pages/allure-history
-          allure_results: results/allure-results
-
-      # Step 10: Publish test report
-      - name: Publish Test Report
-        uses: peaceiris/actions-gh-pages@v3
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
