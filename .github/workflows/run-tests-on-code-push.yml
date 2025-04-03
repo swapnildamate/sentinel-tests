@@ -55,7 +55,7 @@ jobs:
       - name: Build test report
         if: always()
         run: |
-          allure generate $GITHUB_WORKSPACE/reports/allure-results --clean
+          allure generate $GITHUB_WORKSPACE/reports/allure-results --clean -o allure-history
 
       # Step 11: Publish Test Report
       - name: Publish test report
@@ -63,7 +63,7 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: report
+          publish_branch: gh-pages
           publish_dir: allure-history
 
       # Step 7: Upload Test Re sults
