@@ -1,4 +1,4 @@
-name: Run test on PR merge
+name: On Code Push In Any Branch.
 on:
   push:
     branches:
@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
+      # Step 1: Checkout the main code
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Ensure full history for gh-pages
 
-      # Step 2: Set up JDK 17 using Adoptium (Temurin)
+      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -27,7 +27,7 @@ jobs:
       - name: Install Maven
         run: sudo apt-get update && sudo apt-get install -y maven
 
-      # Step 4: Install Allure CLI (Fixed)
+      # Step 4: Install Allure CLI
       - name: Install Allure CLI
         run: |
           sudo apt-get update
@@ -51,7 +51,7 @@ jobs:
       - name: Run Tests
         run: mvn clean test verify
 
-      # Step 7: Upload Test Results and Reports
+      # Step 7: Upload Test Results
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
@@ -59,27 +59,34 @@ jobs:
           path: |
             target/
             allure-results/
-            results/
           retention-days: 2
 
-      # Step 8: Load Previous Test Report History (Fixed)
+      # Step 8: Load Previous Test Report History Without Overwriting (Fixed)
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: report
-          path: allure-history
+          path: temp-report  # Temporary directory
           fetch-depth: 0
 
-      # Step 9: Build Test Report (Fixed Paths)
-      - name: Build test report
+      # Step 9: Move previous history to correct location
+      - name: Restore previous Allure history
         if: always()
         run: |
           mkdir -p allure-history
-          allure generate reports/allure-results --clean -o allure-history
+          if [ -d temp-report/allure-history ]; then
+            cp -r temp-report/allure-history/* allure-history/
+          fi
 
-      # Step 10: Publish Test Report (Fixed Path)
+      # Step 10: Build Test Report
+      - name: Build test report
+        if: always()
+        run: |
+          allure generate results/allure-results --clean -o allure-history
+
+      # Step 11: Publish Test Report
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
