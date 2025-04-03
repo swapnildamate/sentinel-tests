@@ -27,18 +27,23 @@ jobs:
       - name: Install Maven
         run: sudo apt-get update && sudo apt-get install -y maven
 
-      # Step 4: Install Allure
-      - name: Install Allure
+      # Step 4: Install Allure CLI (Fixed)
+      - name: Install Allure CLI
         run: |
           sudo apt-get update
-          sudo apt-get install -y allure
+          sudo apt-get install -y wget unzip
+          wget -O allure.tgz https://github.com/allure-framework/allure2/releases/download/2.21.0/allure-2.21.0.tgz
+          tar -zxvf allure.tgz
+          sudo mv allure-2.21.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
+          allure --version  # Verify installation
 
-      # Step 5: Cache Maven dependencies to speed up the build process
+      # Step 5: Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
@@ -46,7 +51,7 @@ jobs:
       - name: Run Tests
         run: mvn clean test verify
 
-      # Step 7: Upload Test Results and Reports as Artifacts
+      # Step 7: Upload Test Results and Reports
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
@@ -54,30 +59,31 @@ jobs:
           path: |
             target/
             allure-results/
-            reports/
-          retention-days: 2  # Adjust retention as needed
+            results/
+          retention-days: 2
 
-      # Step 8: Load Test Report History (Ensure correct branch fetching)
+      # Step 8: Load Previous Test Report History (Fixed)
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: report
-          path: report
+          path: allure-history
           fetch-depth: 0
 
-      # Step 9: Build Test Report
+      # Step 9: Build Test Report (Fixed Paths)
       - name: Build test report
         if: always()
         run: |
-          allure generate reports/allure-results --clean -o report/allure-history
+          mkdir -p allure-history
+          allure generate results/allure-results --clean -o allure-history
 
-      # Step 10: Publish Test Report
+      # Step 10: Publish Test Report (Fixed Path)
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: report
-          publish_dir: report/allure-history
+          publish_dir: allure-history
