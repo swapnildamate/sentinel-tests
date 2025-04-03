@@ -87,11 +87,18 @@
             <version>${aspectj.version}</version>
         </dependency>
 
-        <!-- Apache POI for Excel Handling -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.2.3</version>
+            <version>5.4.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.4.0</version>
         </dependency>
 
         <!-- Apache HTTP Client -->
@@ -128,6 +135,13 @@
             <artifactId>rest-assured</artifactId>
             <version>5.3.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -179,7 +193,9 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <executions>
+                    <!-- First Execution: Generate Allure Report -->
                     <execution>
+                        <id>generate-allure-report</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>exec</goal>
@@ -192,6 +208,19 @@
                                 <argument>reports/allure-results</argument>
                                 <argument>--clean</argument>
                             </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Second Execution: Send Email with Java -->
+                    <execution>
+                        <id>send-email-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.sentinel.tests.utils.insights.EmailSender</mainClass>
+                            <classpathScope>test</classpathScope>
                         </configuration>
                     </execution>
                 </executions>

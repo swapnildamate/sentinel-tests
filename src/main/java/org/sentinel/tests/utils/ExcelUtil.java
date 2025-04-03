@@ -19,7 +19,7 @@ public class ExcelUtil {
     static {
         String userDir = System.getProperty("user.dir"); // Gets the current working directory
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        FILE_PATH = userDir + File.separator + "reports" + File.separator + "excel-report" + File.separator + "TestSummary_" + timestamp + ".xlsx";
+        FILE_PATH = userDir + File.separator + "reports" + File.separator + "excel-report" + File.separator + "TestSummary.xlsx";
     }
 
     /**

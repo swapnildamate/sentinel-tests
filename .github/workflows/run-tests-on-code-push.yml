@@ -2,7 +2,7 @@ name: Run test on PR merge
 on:
   push:
     branches:
-      - '*ds'
+      - '*'
 
 jobs:
   build_and_deploy:
@@ -36,3 +36,14 @@ jobs:
       # Step 5: Run Tests
       - name: Run Tests
         run: mvn clean test verify
+          
+     # Step 6: Upload Test Results and Reports as Artifacts
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+              target/
+              allure-report/
+              reports/
+              retention-days: 2  # Adjust retention as needed
