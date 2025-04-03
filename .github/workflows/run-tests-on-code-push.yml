@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - '*'
+    workflow_dispatch:  # Allow manual trigger
 
 jobs:
   build_and_deploy:
@@ -68,8 +69,8 @@ jobs:
         if: always()
         continue-on-error: true
         with:
-          ref: gh-pages
-          path: gh-pages
+          ref: feature-1
+          path: feature-1
           fetch-depth: 0
 
       # Step 9: Build Test Report
@@ -77,8 +78,8 @@ jobs:
         shell: pwsh
         if: always()
         run: |
-          $allureResultsPath = (Resolve-Path allure-results).Path
-          $allureHistoryPath = (Resolve-Path gh-pages/allure-history).Path
+          $allureResultsPath = (Resolve-Path reports/allure-results).Path
+          $allureHistoryPath = (Resolve-Path feature-1/allure-history).Path
           allure generate $allureResultsPath --clean -o $allureHistoryPath
 
       # Step 10: Publish Test Report
@@ -87,5 +88,5 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: gh-pages/allure-history
+          publish_branch: f
+          publish_dir: feature-1/allure-history
