@@ -49,7 +49,7 @@ public class EmailSender {
                     + summaryContent
                     + "<p>Please find the attached test reports.</p>"
                     + "<p>Best regards.</p>"
-                    + "<p>Sentinel Tests</p></body></html>";
+                    + "<p style='margin-top: 5px;'><strong><em>Sentinel Tests</em></strong></p></body></html>";
             messageBodyPart.setContent(emailContent, "text/html");
 
             // Attachments
