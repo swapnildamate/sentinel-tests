@@ -69,18 +69,18 @@ jobs:
         if: always()
         continue-on-error: true
         with:
-          ref: feature-1
-          path: feature-1
+          ref: report
+          path: report
           fetch-depth: 0
 
       # Step 9: Build Test Report
       - name: Build test report
-        shell: pwsh
+        uses: simple-elf/allure-report-action@v1.7
         if: always()
-        run: |
-          $allureResultsPath = (Resolve-Path reports/allure-results).Path
-          $allureHistoryPath = (Resolve-Path feature-1/allure-history).Path
-          allure generate $allureResultsPath --clean -o $allureHistoryPath
+        with:
+          gh_pages: report
+          allure_history: allure-history
+          allure_results: results/allure-results
 
       # Step 10: Publish Test Report
       - name: Publish test report
@@ -88,5 +88,5 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: feature-1
-          publish_dir: feature-1/allure-history
+          publish_branch: report
+          publish_dir: allure-history

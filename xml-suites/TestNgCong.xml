@@ -17,6 +17,9 @@
 <!--            <class name="org.sentinel.tests.ui.login.T0001LoginPageTest">-->
 <!--            </class>-->
             <class name="org.sentinel.tests.api.booking.T0201">
+                <methods>
+                    <include name="getToken"></include>
+                </methods>
             </class>
         </classes>
 
