@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025 sentinel-tests
+ * All rights reserved.
+ */
 package org.sentinel.tests.utils;
 
 import org.sentinel.tests.utils.log.LoggerUtil;
@@ -8,8 +12,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 
+
+/**
+ * Utility class providing file and directory manipulation operations.
+ * This class contains static methods for deleting files and directories.
+ * All operations are performed safely with proper error handling and logging.
+ *
+ * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
+ * @version 1.0
+ */
 public class FileUtil {
 
+    /**
+     * Main method for testing the deleteDir and deleteFile methods.
+     * This method is not intended for production use and is only for demonstration purposes.
+     *
+     * @param args Command line arguments (not used)
+     */
     public static void deleteDir(Path directory) {
         String userDir = System.getProperty("user.dir");
         try {
@@ -29,7 +48,13 @@ public class FileUtil {
         }
     }
 
-    // Method to delete a single file
+    /**
+     * Deletes a file at the specified path.
+     * If the file does not exist, a warning is logged.
+     * If an error occurs during deletion, an error message is logged.
+     *
+     * @param filePath The path of the file to be deleted
+     */
     public static void deleteFile(Path filePath) {
         try {
             if (Files.exists(filePath)) {

@@ -2,7 +2,7 @@ name: Run test on PR merge
 on:
   push:
     branches:
-      - 'abc'
+      - '*'
 
 jobs:
   build_and_deploy:
@@ -12,6 +12,8 @@ jobs:
       SMTP_USERNAME: ${{ vars.SMTP_USERNAME }}
       SMTP_PASSWORD: ${{ vars.SMTP_PASSWORD }}
       SMTP_RECIPIENT: ${{ vars.SMTP_RECIPIENT }}
+      LT_USER: ${{ vars.LT_USER }}
+      LT_ACCESS_KEY: ${{ vars.LT_ACCESS_KEY }}
 
     steps:
       # Step 1: Checkout the code

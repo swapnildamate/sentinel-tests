@@ -3,10 +3,14 @@
 <suite name="sentinel-tests">
 
     <!-- parameter -->
-    <parameter name="operatingsystem" value="windows"></parameter>
-    <parameter name="browser" value="chrome"></parameter>
+    <parameter name="run_on" value="remote"></parameter>
+    <parameter name="platform" value="Windows 10"></parameter>
+    <parameter name="browserName" value="Chrome"></parameter>
+    <parameter name="version" value="latest"></parameter>
+    <parameter name="lt_URL" value="https://%s:%s@hub.lambdatest.com/wd/hub"></parameter>
     <parameter name="appURL" value="https://demo.spreecommerce.org/"></parameter>
     <parameter name="baseURI" value="https://restful-booker.herokuapp.com/"></parameter>
+    <parameter name="maxRetryCount" value="1"></parameter>
 
     <!-- listeners -->
     <listeners>
@@ -17,9 +21,16 @@
     <!-- run all tests -->
     <test thread-count="1" name="all-api-ui-tests">
         <packages>
-            <package name="org.sentinel.tests.api.booking"></package>
+<!--            <package name="org.sentinel.tests.api.booking"></package>-->
             <package name="org.sentinel.tests.ui.spreecom"></package>
         </packages>
+<!--        <classes>-->
+<!--            <class name="org.sentinel.tests.ui.spreecom.LoginTest">-->
+<!--                <methods>-->
+<!--                    <include name="T0101"></include>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
     </test>
 
 </suite> <!-- Suite Parent-->

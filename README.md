@@ -24,8 +24,8 @@ automation-framework/
 │   │── pdf-report                                   # PDF format test report
 │── src/                                             # Source code and resources
 │   ├── data-files/                                  # Input data files for tests
-│   │    ├── excel                                   # Excel data sources
-│   │    ├── jsons                                   # JSON data sources
+│   │   ├── excel                                    # Excel data sources
+│   │   ├── jsons                                    # JSON data sources
 │   ├── main/                                        # Main implementation code
 │   │   ├── java/                                    # Java source files
 │   │   │   ├── org/

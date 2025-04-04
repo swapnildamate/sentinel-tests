@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025 sentinel-tests
+ * All rights reserved.
+ */
 package org.sentinel.tests.utils;
 
 import org.json.simple.JSONArray;
@@ -11,6 +15,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Utility class for handling JSON operations including loading, retrieving, updating, and saving JSON data.
+ * This class provides methods to manipulate JSON files and their contents through a simple interface.
+ * 
+ * The class supports:
+ * - Loading JSON data from files
+ * - Retrieving specific values by ID and key
+ * - Updating values in JSON objects
+ * - Saving modified JSON data back to files
+ * 
+ * All operations are logged using the LoggerUtil class for tracking and debugging purposes.
+ * 
+ * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
+ * @version 1.0
+ */
 public class JsonUtil {
     static String FILE_PATH;
 

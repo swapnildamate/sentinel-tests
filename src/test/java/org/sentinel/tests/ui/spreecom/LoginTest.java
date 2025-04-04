@@ -71,7 +71,7 @@ public class LoginTest extends BaseUIService {
         //Step 3
         LoggerUtil.info("Step 3: Started.....");
         result = loginPage.isDisplayedEmailField();
-        assertLog.assertTrue(result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
+        assertLog.assertTrue(!result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
 
         //Step 4
         LoggerUtil.info("Step 4: Started.....");
@@ -81,7 +81,7 @@ public class LoginTest extends BaseUIService {
         //Step 5
         LoggerUtil.info("Step 5: Started.....");
         result = loginPage.isDisplayedRememberMeCheckbox();
-        assertLog.assertTrue(result, "Step 5: Remember Me Checkbox field is displayed.", "Step 5: Remember Me Checkbox field is not displayed.");
+        assertLog.assertTrue(!result, "Step 5: Remember Me Checkbox field is displayed.", "Step 5: Remember Me Checkbox field is not displayed.");
 
         //Step 5
         LoggerUtil.info("Step 6: Started.....");

@@ -1,5 +1,23 @@
+/*
+ * Copyright (c) 2025 sentinel-tests
+ * All rights reserved.
+ */
 package org.sentinel.tests.constants;
 
+/**
+ * Constants class containing HTTP-related string values used across the API.
+ * This class provides commonly used HTTP methods, header names, and content types
+ * as static final String constants.
+ * 
+ * <p>The constants are grouped into two main categories:
+ * <ul>
+ *   <li>HTTP Methods - Standard HTTP verbs and custom methods</li>
+ *   <li>Headers - Common HTTP header names and their values</li>
+ * </ul>
+ * 
+ * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
+ * @version 1.0
+ */
 public class APIConstants {
     //HTTP Methods
     public static final String GET="get";
