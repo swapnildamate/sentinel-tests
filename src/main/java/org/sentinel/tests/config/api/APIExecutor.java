@@ -44,7 +44,7 @@ public class APIExecutor {
      */
     APIExecutor(String baseURI) {
         RestAssured.baseURI = baseURI;// Example API
-        requestSpecification = RestAssured.given().log().all();
+        RestAssured.given().log().all();
     }
 
     /**
@@ -60,7 +60,7 @@ public class APIExecutor {
         response.getHeaders().forEach(header -> LoggerUtil.info(String.format("Header Name: %s Value: %s", header.getName(), header.getValue())));
         try {
             String prettyBody = response.getBody().asPrettyString();
-            LoggerUtil.info(String.format("Response Body: %s", prettyBody.toString().replaceAll("\\s+", " ")));
+            LoggerUtil.info(String.format("Response Body: %s", prettyBody.replaceAll("\\s+", " ")));
         } catch (Exception e) {
             LoggerUtil.warning(String.format("Failed to pretty-print response body. Raw Body: %s", response.getBody().asString()));
         }

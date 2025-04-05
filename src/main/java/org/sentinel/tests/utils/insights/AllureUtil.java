@@ -43,7 +43,7 @@ public class AllureUtil {
      * @param failMsg The message to log if the step fails.
      */
     public static void step(boolean result, String passMsg, String failMsg) {
-        if (result == true) {
+        if (result) {
             pass(passMsg);
         } else {
             fail(failMsg);
@@ -90,8 +90,8 @@ public class AllureUtil {
     }
 
     public static void fail(final String failMsg, boolean takeSnap) {
-        if (!takeSnap)
-        LoggerUtil.warning(String.format("Take Screenshot set as %s", takeSnap));
+        if (!takeSnap){
+        LoggerUtil.warning(String.format("Take Screenshot set as %s", takeSnap));}
         fail(failMsg);
         if (takeSnap)
             Allure.addAttachment(

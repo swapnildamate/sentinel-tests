@@ -6,6 +6,7 @@ package org.sentinel.tests.config.ui;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.sentinel.tests.constants.ConfigConstants;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.testng.ReadTestNG;
 
@@ -29,8 +30,11 @@ import org.sentinel.tests.utils.testng.ReadTestNG;
 public class WebDriverManager {
 
     private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
-    public static String sessionId;
+    public static String sessionId=null;
 
+    private WebDriverManager(){
+
+    }
    
     /**
      * Gets or creates a WebDriver instance using thread-local storage to ensure thread safety.
@@ -44,9 +48,9 @@ public class WebDriverManager {
         if (driverThreadLocal.get() == null) {
             synchronized (WebDriverManager.class) { // Prevent race conditions
                 if (driverThreadLocal.get() == null) {// Double-check locking
-                    String run_on = ReadTestNG.getParameter("run_on");
-                    LoggerUtil.info(String.format("Doing setup for %s runs.", run_on));
-                    switch (run_on.toLowerCase()) {
+                    String runOn = ReadTestNG.getParameter(ConfigConstants.RUN_ON);
+                    LoggerUtil.info(String.format("Doing setup for %s runs.", runOn));
+                    switch (runOn.toLowerCase()) {
                         case "remote":
                             LoggerUtil.info("Launching Remote Instance.");
                             driverThreadLocal.set(BrowserManager.getRemoteBrowser());
@@ -58,8 +62,8 @@ public class WebDriverManager {
                             driverThreadLocal.set(BrowserManager.getLocalBrowser());
                             break;
                         default:
-                            LoggerUtil.warning(String.format("Unsupported run params: %s", run_on));
-                            throw new IllegalArgumentException("Unsupported params: " + run_on);
+                            LoggerUtil.warning(String.format("Unsupported run params: %s", runOn));
+                            throw new IllegalArgumentException("Unsupported params: " + runOn);
                     }
                 }
             }

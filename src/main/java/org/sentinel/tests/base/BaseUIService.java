@@ -59,14 +59,14 @@ public class BaseUIService {
 
     @BeforeSuite(alwaysRun = true)
     public void cleanUpPreviousData() {
-        Path allure_report = Paths.get("allure-report");
-        FileUtil.deleteDir(allure_report);
-        Path allure_results = Paths.get("reports/allure-results");
-        FileUtil.deleteDir(allure_results);
-        Path excel_report = Paths.get("reports/excel-report");
-        FileUtil.deleteDir(excel_report);
-        Path pdf_report = Paths.get("reports/pdf-report");
-        FileUtil.deleteDir(pdf_report);
+        Path allureReport = Paths.get("allure-report");
+        FileUtil.deleteDir(allureReport);
+        Path allureResults = Paths.get("reports/allure-results");
+        FileUtil.deleteDir(allureResults);
+        Path excelReport = Paths.get("reports/excel-report");
+        FileUtil.deleteDir(excelReport);
+        Path pdfReport = Paths.get("reports/pdf-report");
+        FileUtil.deleteDir(pdfReport);
         Path video = Paths.get("reports/video");
         FileUtil.deleteDir(video);
         ExcelUtil.createExcelFile();
@@ -112,7 +112,7 @@ public class BaseUIService {
      */
     @AfterClass
     public void closeBrowser(ITestContext context) {
-
+        LoggerUtil.info("This is a After class.");
     }
 
     @AfterSuite(alwaysRun = true)

@@ -23,22 +23,22 @@ import java.util.concurrent.TimeUnit;
  * Utility class for retrieving captured session recordings from LambdaTest API.
  * This class provides functionality to fetch video URLs and session data from
  * the LambdaTest automation API.
- * 
+ *
  * <p>This class contains static utility methods and cannot be instantiated.</p>
- * 
+ *
  * <p>Key features:</p>
  * <ul>
  *   <li>Retrieves video URLs for specific session IDs</li>
  *   <li>Handles API authentication using LambdaTest credentials</li>
  *   <li>Processes JSON responses from the LambdaTest API</li>
  * </ul>
- * 
+ *
  * <p>Required environment variables:</p>
  * <ul>
  *   <li>LT_USER - LambdaTest username</li>
  *   <li>LT_ACCESS_KEY - LambdaTest access key</li>
  * </ul>
- * 
+ *
  * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
  * @version 1.0
  */
@@ -71,7 +71,7 @@ public class GetCapturedSession {
      *
      * @param sessionId The session ID to retrieve the video URL for
      * @return The video URL as a String, or null if not found
-     * @throws IOException If an I/O error occurs while fetching the video URL
+     * @throws IOException    If an I/O error occurs while fetching the video URL
      * @throws ParseException If an error occurs while parsing the JSON response
      */
     private static String getVideoUrl(String sessionId) throws IOException, ParseException {
@@ -79,7 +79,7 @@ public class GetCapturedSession {
         try {
             TimeUnit.SECONDS.sleep(30);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
         }
 
         HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
@@ -164,10 +164,8 @@ public class GetCapturedSession {
     public static String getVideoPath(String sessionId) {
         try {
             return downloadVideo(getVideoUrl(sessionId));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | ParseException e) {
+            throw new IllegalStateException("Unable to download video");
         }
     }
 }

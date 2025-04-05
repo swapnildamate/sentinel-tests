@@ -221,7 +221,7 @@ public class PDFReport {
         table.addCell(keyHeader);
         table.addCell(valueHeader);
 
-        Properties properties = AllureEnvironmentSetup.properties;
+        Properties properties = AllureEnvironmentSetup.getProperties();
 
         // Add property key-value pairs with alternating row colors
         boolean alternate = false;

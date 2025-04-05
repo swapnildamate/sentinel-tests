@@ -42,8 +42,10 @@ import java.net.URL;
  * @see org.openqa.selenium.remote.RemoteWebDriver
  */
 public class BrowserManager {
-    private static WebDriver driver;
 
+    private BrowserManager(){
+
+    }
     /**
      * Creates and initializes a WebDriver instance based on the specified browser in TestNG parameters.
      * Supports Chrome, Firefox, and Edge browsers with specific configurations.
@@ -60,6 +62,7 @@ public class BrowserManager {
      * @see EdgeDriver
      */
     public static WebDriver getLocalBrowser() {
+        WebDriver driver;
         String browser = ReadTestNG.getParameter("browserName");
         try {
             LoggerUtil.info("Initializing browser: " + browser);
@@ -92,7 +95,7 @@ public class BrowserManager {
             return driver;
         } catch (Exception e) {
             LoggerUtil.error("Failed to initialize browser: " + browser + " - Error: " + e.getMessage());
-            throw new RuntimeException("WebDriver initialization failed", e);
+            throw new IllegalArgumentException("WebDriver initialization failed", e);
         }
     }
 
@@ -113,7 +116,7 @@ public class BrowserManager {
             return new RemoteWebDriver(new URL(ltUrl), capabilities);
         } catch (MalformedURLException e) {
             LoggerUtil.info("Remote browser not launched");
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Remote browser not launched");
         }
     }
 }

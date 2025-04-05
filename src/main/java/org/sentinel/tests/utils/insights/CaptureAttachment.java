@@ -29,6 +29,8 @@ import java.nio.file.Paths;
  */
 public class CaptureAttachment {
 
+    private CaptureAttachment(){}
+
     /**
      * Captures a screenshot of the current browser window and creates an Allure attachment.
      * 
@@ -42,7 +44,7 @@ public class CaptureAttachment {
         if (driver != null) {
             return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         }
-        return null;
+        return new byte[0];
     }
 
     /**
@@ -63,7 +65,7 @@ public class CaptureAttachment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return new byte[0];
     }
 }
 

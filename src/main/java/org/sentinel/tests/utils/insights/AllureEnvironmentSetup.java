@@ -16,7 +16,7 @@ import java.util.Properties;
  * Utility class for setting up environment properties for Allure reporting.
  * This class handles the creation and population of environment.properties file
  * which is used by Allure to display test environment information in the reports.
- * 
+ * <p>
  * The class captures various execution environment details including:
  * - Execution platform
  * - Browser information
@@ -24,10 +24,10 @@ import java.util.Properties;
  * - User executing the tests
  * - Browser version
  * - Execution platform (run_on parameter)
- * 
- * The environment properties file is created in the 'reports/allure-results' 
+ * <p>
+ * The environment properties file is created in the 'reports/allure-results'
  * directory relative to the project root.
- * 
+ *
  * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
  * @version 1.0
  * @see Properties
@@ -35,12 +35,15 @@ import java.util.Properties;
  * @see LoggerUtil
  */
 public class AllureEnvironmentSetup {
-   public static Properties properties;
+    private static Properties properties;
+
+    private AllureEnvironmentSetup() {
+    }
 
     /**
      * Creates an environment.properties file for Allure reporting with system and test configuration details.
      * The file is created in the 'reports/allure-results' directory under the project root.
-     * 
+     * <p>
      * The following properties are included in the file:
      * - Executed On: The platform where tests are run (from TestNG parameters)
      * - Platform: Operating system name
@@ -48,7 +51,7 @@ public class AllureEnvironmentSetup {
      * - Version: Test version (from TestNG parameters)
      * - URL: Application URL (from TestNG parameters)
      * - Executed By: Username of the person executing the tests
-     * 
+     *
      * @throws IOException If there are issues creating the file or writing properties
      */
     public static void createEnvironmentFile() {
@@ -81,4 +84,7 @@ public class AllureEnvironmentSetup {
         }
     }
 
+    public static Properties getProperties() {
+        return properties;
+    }
 }

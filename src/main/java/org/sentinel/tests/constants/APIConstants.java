@@ -19,6 +19,11 @@ package org.sentinel.tests.constants;
  * @version 1.0
  */
 public class APIConstants {
+
+    private APIConstants(){
+
+    }
+
     //HTTP Methods
     public static final String GET="get";
     public static final String POST="post";
@@ -38,4 +43,6 @@ public class APIConstants {
     public static final String TEXT_PLAIN="text/plain";
     public static final String MULTIPART_FORMDATA="multipart/form-data";
 
+    //
+    public static final String REQUEST_HEADER_ADDED="Request header added: ";
 }

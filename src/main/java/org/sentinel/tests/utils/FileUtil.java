@@ -23,6 +23,8 @@ import java.util.Comparator;
  */
 public class FileUtil {
 
+    private FileUtil(){}
+
     /**
      * Main method for testing the deleteDir and deleteFile methods.
      *

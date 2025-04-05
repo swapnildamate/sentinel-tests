@@ -22,14 +22,14 @@ public class BaseAPIService {
 
     @BeforeSuite(alwaysRun = true)
     public void cleanUpPreviousData() {
-        Path allure_report = Paths.get("allure-report");
-        FileUtil.deleteDir(allure_report);
-        Path allure_results = Paths.get("reports/allure-results");
-        FileUtil.deleteDir(allure_results);
-        Path excel_report = Paths.get("reports/excel-report");
-        FileUtil.deleteDir(excel_report);
-        Path pdf_report = Paths.get("reports/pdf-report");
-        FileUtil.deleteDir(pdf_report);
+        Path allureReport = Paths.get("allure-report");
+        FileUtil.deleteDir(allureReport);
+        Path allureResults = Paths.get("reports/allure-results");
+        FileUtil.deleteDir(allureResults);
+        Path excelReport = Paths.get("reports/excel-report");
+        FileUtil.deleteDir(excelReport);
+        Path pdfReport = Paths.get("reports/pdf-report");
+        FileUtil.deleteDir(pdfReport);
         ExcelUtil.createExcelFile();
     }
 
