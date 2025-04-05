@@ -1,6 +1,6 @@
 package org.sentinel.tests.utils.log;
 
-import org.sentinel.tests.utils.insights.UpdateAllure;
+import org.sentinel.tests.utils.insights.AllureUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -181,7 +181,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void info(String message) {
-        UpdateAllure.pass(message);
+        AllureUtil.pass(message);
         log(Level.INFO, message);
     }
 
@@ -191,6 +191,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void warning(String message) {
+        AllureUtil.warn(message);
         log(Level.WARNING, message);
     }
 
@@ -200,7 +201,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void error(String message) {
-        UpdateAllure.fail(message);
+        AllureUtil.fail(message);
         log(Level.SEVERE, message);
     }
 

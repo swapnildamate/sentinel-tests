@@ -4,6 +4,7 @@
  */
 package org.sentinel.tests.utils.testng;
 
+import org.sentinel.tests.utils.log.LoggerUtil;
 import org.testng.ITestContext;
 
 import java.util.HashMap;
@@ -47,8 +48,10 @@ public class ReadTestNG {
      * @param context The test context containing information about the test run
      */
     public static void loadParameters(ITestContext context) {
+        LoggerUtil.info("Parameter Loading.....");
         context.getCurrentXmlTest().getAllParameters()
                 .forEach(paramMap::put);
+        LoggerUtil.info("Parameter Completed.....");
     }
 
     /**

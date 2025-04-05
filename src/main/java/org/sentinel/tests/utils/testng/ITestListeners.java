@@ -18,26 +18,26 @@ import java.util.*;
 /**
  * A TestNG listener implementation that provides test execution monitoring and reporting functionality.
  * This class implements ITestListener to hook into the TestNG test lifecycle events.
- * 
+ * <p>
  * Key features:
  * - Logs test execution status at various stages
  * - Captures screenshots on test failures when WebDriver is available
  * - Maintains test results in a thread-safe collection
  * - Exports test results to Excel at the end of test execution
- * 
+ * <p>
  * The listener tracks the following test events:
  * - Test start/finish
  * - Individual test method start
  * - Test success
  * - Test failure (with screenshot capture)
  * - Test skipped
- * 
+ * <p>
  * Results are stored with the following information:
  * - Package name
  * - Method name
  * - Execution status
  * - Remarks/error messages
- * 
+ *
  * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
  * @version 1.0
  * @see org.testng.ITestListener
@@ -47,7 +47,7 @@ public class ITestListeners implements ITestListener {
     private static WebDriver driver;
     protected List<Map<String, String>> testCasesResultMap = new ArrayList<>();
 
-    
+
     /**
      * Called when a test class starts its execution.
      * Logs the start of test execution using LoggerUtil.

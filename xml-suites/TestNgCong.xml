@@ -11,6 +11,7 @@
     <parameter name="appURL" value="https://demo.spreecommerce.org/"></parameter>
     <parameter name="baseURI" value="https://restful-booker.herokuapp.com/"></parameter>
     <parameter name="maxRetryCount" value="1"></parameter>
+    <parameter name="takeSnapOnFailure" value="true"></parameter>
 
     <!-- listeners -->
     <listeners>

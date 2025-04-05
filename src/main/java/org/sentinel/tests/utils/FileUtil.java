@@ -25,9 +25,8 @@ public class FileUtil {
 
     /**
      * Main method for testing the deleteDir and deleteFile methods.
-     * This method is not intended for production use and is only for demonstration purposes.
      *
-     * @param args Command line arguments (not used)
+     * @param directory Directory to delete.
      */
     public static void deleteDir(Path directory) {
         String userDir = System.getProperty("user.dir");

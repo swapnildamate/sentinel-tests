@@ -5,7 +5,7 @@
  */
 package org.sentinel.tests.utils.testng;
 
-import org.sentinel.tests.utils.insights.UpdateAllure;
+import org.sentinel.tests.utils.insights.AllureUtil;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.testng.asserts.IAssert;
 import org.testng.asserts.SoftAssert;
@@ -95,7 +95,7 @@ public class AssertLog extends SoftAssert {
         if (condition) {
             LoggerUtil.info(passMsg);
         } else {
-            LoggerUtil.error(failMsg);
+            AllureUtil.fail(failMsg,Boolean.valueOf(ReadTestNG.getParameter("takeSnapOnFailure")));
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }
@@ -114,7 +114,7 @@ public class AssertLog extends SoftAssert {
             LoggerUtil.info(passMsg);
         } else {
             String failureMessage = failMsg + " Expected: <" + expected + "> but found: <" + actual + ">";
-            LoggerUtil.error(failureMessage);
+            AllureUtil.fail(failMsg,Boolean.valueOf(ReadTestNG.getParameter("takeSnapOnFailure")));
             onAssertFailure(null, new AssertionError(failureMessage));
         }
     }
@@ -131,7 +131,7 @@ public class AssertLog extends SoftAssert {
         if (!condition) {
             LoggerUtil.info(passMsg);
         } else {
-            LoggerUtil.error(failMsg);
+            AllureUtil.fail(failMsg,Boolean.valueOf(ReadTestNG.getParameter("takeSnapOnFailure")));
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }
@@ -148,10 +148,8 @@ public class AssertLog extends SoftAssert {
     public void assertEquals(Object actual, Object expected, String passMsg, String failMsg) {
         if (actual == null ? expected == null : actual.equals(expected)) {
             LoggerUtil.info(passMsg);
-            UpdateAllure.pass(passMsg);
         } else {
-            LoggerUtil.error(failMsg);
-            UpdateAllure.fail(failMsg);
+            AllureUtil.fail(failMsg,Boolean.valueOf(ReadTestNG.getParameter("takeSnapOnFailure")));
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }
@@ -169,7 +167,7 @@ public class AssertLog extends SoftAssert {
         if (actual == null ? expected != null : !actual.equals(expected)) {
             LoggerUtil.info(passMsg);
         } else {
-            LoggerUtil.error(failMsg);
+            AllureUtil.fail(failMsg,Boolean.valueOf(ReadTestNG.getParameter("takeSnapOnFailure")));
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }
@@ -186,7 +184,7 @@ public class AssertLog extends SoftAssert {
         if (object == null) {
             LoggerUtil.info(passMsg);
         } else {
-            LoggerUtil.error(failMsg);
+            AllureUtil.fail(failMsg,Boolean.valueOf(ReadTestNG.getParameter("takeSnapOnFailure")));
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }
@@ -203,7 +201,7 @@ public class AssertLog extends SoftAssert {
         if (object != null) {
             LoggerUtil.info(passMsg);
         } else {
-            LoggerUtil.error(failMsg);
+            AllureUtil.fail(failMsg,Boolean.valueOf(ReadTestNG.getParameter("takeSnapOnFailure")));
             onAssertFailure(null, new AssertionError(failMsg));
         }
     }
