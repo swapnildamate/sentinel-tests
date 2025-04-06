@@ -67,7 +67,7 @@ public class AllureEnvironmentSetup {
             String runOn = ReadTestNG.getParameter(ConfigConstants.RUN_ON);
 
             if (runOn.equalsIgnoreCase(ConfigConstants.RUN_ON_REMOTE)) {
-                String ltBuildId = System.getenv("LT_BUILD"); // Environment variable set in the GitHub Actions workflow
+                String ltBuildId = System.getenv(ConfigConstants.LT_BUILD); // Environment variable set in the GitHub Actions workflow
                 if (ltBuildId != null) {
                     properties.setProperty("LT_BUILD_ID", ltBuildId);
                 } else {

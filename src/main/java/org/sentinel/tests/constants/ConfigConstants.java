@@ -18,7 +18,9 @@ public class ConfigConstants {
     public static final String PLATFORM = "platform";
     public static final String BROWSER_NAME = "browserName";
     public static final String BROWSER_VERSION = "version";
+    public static final String BUILD_NAME="build";
     public static final String RUN_NAME = "name";
+    public static final String LT_BUILD="LT_BUILD";
 
 
 }

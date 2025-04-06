@@ -97,7 +97,6 @@ public class LoginTest extends BaseUIService {
     @Test
     @Description("Verify user able to login into system.")
     public void T0102(Method method) throws Exception {
-
         String methodName =method.getName();
         Description description = method.getAnnotation(Description.class);
         LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));

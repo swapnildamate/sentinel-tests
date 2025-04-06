@@ -18,6 +18,7 @@ import org.sentinel.tests.ui.pom.LoginPage;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.sentinel.tests.utils.FileUtil;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.nio.file.Path;
@@ -50,12 +51,14 @@ import java.time.Duration;
  * @see PDFReport
  */
 public class BaseUIService {
+    private static String testName;
     protected WebDriver driver;
     protected AssertLog assertLog = new AssertLog();
     protected String appURL;
 
     protected LoginPage loginPage;
     protected MyAccountPage myAccountPage;
+
 
     @BeforeSuite(alwaysRun = true)
     public void cleanUpPreviousData() {
@@ -85,7 +88,8 @@ public class BaseUIService {
      * In this method we create all object of page factory.
      */
     @BeforeMethod(alwaysRun = true)
-    public void tearUp(ITestContext context) {
+    public void tearUp(ITestContext context, ITestResult result) {
+        testName = result.getMethod().getMethodName();
         driver = WebDriverManager.getDriverInstance();
         context.setAttribute("driver", driver);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
@@ -119,5 +123,9 @@ public class BaseUIService {
     public void generateReport() {
         AllureEnvironmentSetup.createEnvironmentFile();
         PDFReport.generatePDF();
+    }
+
+    public static String getTestName(){
+        return testName;
     }
 }

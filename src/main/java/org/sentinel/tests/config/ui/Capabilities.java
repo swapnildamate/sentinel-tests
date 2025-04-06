@@ -5,6 +5,7 @@
 package org.sentinel.tests.config.ui;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.sentinel.tests.base.BaseUIService;
 import org.sentinel.tests.constants.ConfigConstants;
 import org.sentinel.tests.utils.testng.ReadTestNG;
 
@@ -47,7 +48,8 @@ public class Capabilities {
         capabilities.setCapability(ConfigConstants.PLATFORM, ReadTestNG.getParameter(ConfigConstants.PLATFORM));
         capabilities.setCapability(ConfigConstants.BROWSER_NAME, ReadTestNG.getParameter(ConfigConstants.BROWSER_NAME));
         capabilities.setCapability(ConfigConstants.BROWSER_VERSION, ReadTestNG.getParameter(ConfigConstants.BROWSER_VERSION));
-        capabilities.setCapability(ConfigConstants.RUN_NAME, ReadTestNG.getParameter(ConfigConstants.PLATFORM) + " - " + ReadTestNG.getParameter(ConfigConstants.BROWSER_NAME) + " - " + ReadTestNG.getParameter(ConfigConstants.BROWSER_VERSION) + " Test");
+        capabilities.setCapability(ConfigConstants.BUILD_NAME,System.getenv(ConfigConstants.LT_BUILD));
+        capabilities.setCapability(ConfigConstants.RUN_NAME, BaseUIService.getTestName());
         return capabilities;
     }
 }

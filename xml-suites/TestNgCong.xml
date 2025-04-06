@@ -3,7 +3,7 @@
 <suite name="sentinel-tests">
 
     <!-- parameter -->
-    <parameter name="run_on" value="remote"></parameter>
+    <parameter name="run_on" value="local"></parameter>
     <parameter name="platform" value="Windows 10"></parameter>
     <parameter name="browserName" value="Chrome"></parameter>
     <parameter name="version" value="latest"></parameter>
