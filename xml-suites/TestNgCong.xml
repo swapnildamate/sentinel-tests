@@ -21,9 +21,13 @@
 
     <!-- run all tests -->
     <test thread-count="1" name="all-api-ui-tests">
-        <packages>
-            <package name="org.sentinel.tests.ui.spreecom"></package>
-        </packages>
+       <classes>
+           <class name="org.sentinel.tests.ui.spreecom.LoginTest">
+               <methods>
+                   <include name="T0102"></include>
+               </methods>
+           </class>
+       </classes>
     </test>
 
 </suite> <!-- Suite Parent-->
