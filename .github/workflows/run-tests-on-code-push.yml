@@ -14,7 +14,7 @@ jobs:
       SMTP_RECIPIENT: ${{ vars.SMTP_RECIPIENT }}
       LT_USER: ${{ vars.LT_USER }}
       LT_ACCESS_KEY: ${{ vars.LT_ACCESS_KEY }}
-      LT_BUILD: Build-${{ github.run_number }}-${{ github.ref_name }}-${{ github.ref_name }}
+      LT_BUILD: Build-${{ github.ref_name }}-${{ github.run_number }}-${{ github.run_number }}-${{ github.actor }}
 
     steps:
       # Step 1: Checkout the code
