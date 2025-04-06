@@ -42,13 +42,11 @@ public class LoginTest extends BaseUIService {
 
     @Test
     @Description("Verify login page.")
-    public void T0101() throws Exception {
+    public void T0101(Method method) throws Exception {
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Method method = this.getClass().getMethod(methodName);
+        String methodName =method.getName();
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));
 
         //Read Test Data
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
@@ -98,13 +96,11 @@ public class LoginTest extends BaseUIService {
 
     @Test
     @Description("Verify user able to login into system.")
-    public void T0102() throws Exception {
+    public void T0102(Method method) throws Exception {
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Method method = this.getClass().getMethod(methodName);
+        String methodName =method.getName();
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));
 
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
 

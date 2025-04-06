@@ -79,7 +79,7 @@ public class GetCapturedSession {
         try {
             TimeUnit.SECONDS.sleep(30);
         } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
+            throw new IllegalThreadStateException("Issue with local thread sleep.");
         }
 
         HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();

@@ -5,6 +5,7 @@
 package org.sentinel.tests.utils.testng;
 
 import org.openqa.selenium.WebDriver;
+import org.sentinel.tests.constants.ConfigConstants;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.insights.CaptureAttachment;
 import org.sentinel.tests.utils.ExcelUtil;
@@ -44,8 +45,7 @@ import java.util.*;
  * @see org.openqa.selenium.WebDriver
  */
 public class ITestListeners implements ITestListener {
-    private static WebDriver driver;
-    protected List<Map<String, String>> testCasesResultMap = new ArrayList<>();
+    protected List<Map<String, String>> testCasesResultMap;
 
 
     /**
@@ -97,7 +97,7 @@ public class ITestListeners implements ITestListener {
     public void onTestFailure(ITestResult result) {
 
         ITestContext context = result.getTestContext();
-        driver = (WebDriver) context.getAttribute("driver");
+        WebDriver driver = (WebDriver) context.getAttribute("driver");
         if (driver != null) {
             CaptureAttachment.captureScreenshot(driver);
             LoggerUtil.info("Screenshot not captured.");// Capture screenshot
@@ -129,7 +129,7 @@ public class ITestListeners implements ITestListener {
      */
     @Override
     public void onFinish(ITestContext context) {
-        testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
+        testCasesResultMap = (List<Map<String, String>>) context.getAttribute(ConfigConstants.TEST_CASES_RESULT_MAP);
         if (!testCasesResultMap.isEmpty()) {
             ExcelUtil.addTestCases(testCasesResultMap);
         }
@@ -148,7 +148,7 @@ public class ITestListeners implements ITestListener {
         ITestContext context = result.getTestContext();
 
         // Retrieve or initialize testCasesResultMap
-        List<Map<String, String>> testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
+        testCasesResultMap = (List<Map<String, String>>) context.getAttribute("testCasesResultMap");
 
         if (testCasesResultMap == null) {
             testCasesResultMap = Collections.synchronizedList(new ArrayList<>()); // Ensures thread safety

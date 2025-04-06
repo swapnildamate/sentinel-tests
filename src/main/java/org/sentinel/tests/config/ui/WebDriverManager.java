@@ -30,7 +30,7 @@ import org.sentinel.tests.utils.testng.ReadTestNG;
 public class WebDriverManager {
 
     private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
-    public static String sessionId=null;
+    private static String sessionId=null;
 
     private WebDriverManager(){
 
@@ -99,5 +99,9 @@ public class WebDriverManager {
                 driverThreadLocal.remove(); // Clean up to prevent memory leaks
             }
         }
+    }
+
+    public static String getSessionId(){
+        return sessionId;
     }
 }

@@ -98,7 +98,7 @@ public class PDFReport {
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
 
-        PdfPTable envTable = addEnvTable(document);
+        PdfPTable envTable = addEnvTable();
         document.add(envTable);
 
         // Table setup
@@ -195,7 +195,7 @@ public class PDFReport {
         }
     }
 
-    private static PdfPTable addEnvTable(Document document) throws DocumentException {
+    private static PdfPTable addEnvTable() throws DocumentException {
 
         // Create a 2-column table
         PdfPTable table = new PdfPTable(2);

@@ -101,9 +101,9 @@ public class BaseUIService {
             WebDriverManager.quitDriver();
         }
 
-        LoggerUtil.warning(String.format("Current Session Id is: %s", WebDriverManager.sessionId));
-        if (WebDriverManager.sessionId != null) {
-            CaptureAttachment.captureVideo(GetCapturedSession.getVideoPath(WebDriverManager.sessionId));
+        LoggerUtil.warning(String.format("Current Session Id is: %s", WebDriverManager.getSessionId()));
+        if (WebDriverManager.getSessionId() != null) {
+            CaptureAttachment.captureVideo(GetCapturedSession.getVideoPath(WebDriverManager.getSessionId()));
         }
     }
 

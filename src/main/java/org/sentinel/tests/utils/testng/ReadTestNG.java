@@ -38,8 +38,9 @@ import java.util.Map;
  * @version 1.0
  */
 public class ReadTestNG {
-
     private static final Map<String, String> paramMap = new HashMap<>();
+
+    private ReadTestNG(){}
 
     /**
      * Loads parameters from the TestNG context into a static map.

@@ -1,5 +1,6 @@
 package org.sentinel.tests.utils.testng;
 
+import org.sentinel.tests.constants.ConfigConstants;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
@@ -21,7 +22,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
     /**
      * Maximum number of retry attempts allowed, read from TestNG parameters.
      */
-    private static final int maxRetryCount = Integer.valueOf(ReadTestNG.getParameter("maxRetryCount"));
+    private static final int MAX_RETRY_COUNT = Integer.parseInt(ReadTestNG.getParameter(ConfigConstants.MAX_RETRY_COUNT));
 
     /**
      * Method called by TestNG to determine if a failed test should be retried.
@@ -31,9 +32,9 @@ public class RetryAnalyzer implements IRetryAnalyzer {
      */
     @Override
     public boolean retry(ITestResult result) {
-        if (retryCount < maxRetryCount) {
+        if (retryCount < MAX_RETRY_COUNT) {
             retryCount++;
-            LoggerUtil.info("Retrying " + result.getName() + " (" + retryCount + "/" + maxRetryCount + ")");
+            LoggerUtil.info("Retrying " + result.getName() + " (" + retryCount + "/" + MAX_RETRY_COUNT + ")");
             return true;
         }
         return false;

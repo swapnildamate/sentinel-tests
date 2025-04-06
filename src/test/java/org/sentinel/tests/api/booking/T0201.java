@@ -17,11 +17,10 @@ public class T0201 extends BaseAPIService {
     @Description("Verify user able to get access token.")
     public void getToken() throws NoSuchMethodException {
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
+        String methodName = this.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));
 
         String endpointPost = JsonUtil.getDataByIdAndKey(dataFile, "booking.getAuth", "post.CreateToken").toString();
         String reqBody = JsonUtil.getDataByIdAndKey(dataFile, "booking.getAuth", "reqBody").toString();
@@ -29,7 +28,7 @@ public class T0201 extends BaseAPIService {
         //Step 1 Started
         LoggerUtil.info("Step 1: Started.....");
         response = bookingService.getToken(endpointPost, reqBody);
-        assertLog.assertTrue(response.getStatusCode()==200,"Step 1 : Access token generated successfully.","Step 1 : User un-authorized.");
+        assertLog.assertTrue(response.getStatusCode() == 200, "Step 1 : Access token generated successfully.", "Step 1 : User un-authorized.");
 
         assertLog.assertAllWithLog();
     }
@@ -38,19 +37,18 @@ public class T0201 extends BaseAPIService {
     @Description("Verify returns the ids of all the bookings that exist within the API..")
     public void getBookingsIds() throws NoSuchMethodException {
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
+        String methodName = this.getClass().getEnclosingMethod().getName();
         Method method = this.getClass().getMethod(methodName);
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));
 
         String endpointGet = JsonUtil.getDataByIdAndKey(dataFile, "booking.geBookingIds", "get.BookingId").toString();
 
         //Step 1 Started
         LoggerUtil.info("Step 1: Started.....");
         response = bookingService.getBookingIds(endpointGet);
-        assertLog.assertTrue(response.getStatusCode()==2003,"Step 1 : Booking Ids displayed.","Step 1 : Booking Ids not displayed.");
-        assertLog.assertString("SSD","SDSD","String paass","String fails");
+        assertLog.assertTrue(response.getStatusCode() == 2003, "Step 1 : Booking Ids displayed.", "Step 1 : Booking Ids not displayed.");
+        assertLog.assertString("SSD", "SDSD", "String paass", "String fails");
         assertLog.assertAllWithLog();
     }
 }
