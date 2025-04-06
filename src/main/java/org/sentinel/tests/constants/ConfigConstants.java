@@ -8,6 +8,8 @@ public class ConfigConstants {
 
     //
     public static final String RUN_ON="run_on";
+    public static final String RUN_ON_LOCAL="local";
+    public static final String RUN_ON_REMOTE="remote";
     public static final String MAX_RETRY_COUNT="maxRetryCount";
     public static final String TAKE_SNAP_ON_FAILURE="takeSnapOnFailure";
     public static final String TEST_CASES_RESULT_MAP="testCasesResultMap";

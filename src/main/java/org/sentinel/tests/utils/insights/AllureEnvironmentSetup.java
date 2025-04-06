@@ -4,6 +4,7 @@
  */
 package org.sentinel.tests.utils.insights;
 
+import org.sentinel.tests.constants.ConfigConstants;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.testng.ReadTestNG;
 
@@ -63,6 +64,16 @@ public class AllureEnvironmentSetup {
             properties.setProperty("Version", ReadTestNG.getParameter("version"));
             properties.setProperty("URL", ReadTestNG.getParameter("appURL"));
             properties.setProperty("Executed By", System.getProperty("user.name"));
+            String runOn = ReadTestNG.getParameter(ConfigConstants.RUN_ON);
+
+            if (runOn.equalsIgnoreCase(ConfigConstants.RUN_ON_REMOTE)) {
+                String ltBuildId = System.getenv("LT_BUILD"); // Environment variable set in the GitHub Actions workflow
+                if (ltBuildId != null) {
+                    properties.setProperty("LT_BUILD_ID", ltBuildId);
+                } else {
+                    LoggerUtil.warning("LT_BUILD environment variable not found.");
+                }
+            }
 
             // Get project root directory dynamically
             String projectRoot = System.getProperty("user.dir");
