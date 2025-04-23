@@ -4,6 +4,7 @@
  */
 package org.sentinel.tests.base;
 
+import io.qameta.allure.Description;
 import org.openqa.selenium.WebDriver;
 import org.sentinel.tests.ui.pom.MyAccountPage;
 import org.sentinel.tests.utils.insights.AllureEnvironmentSetup;
@@ -21,6 +22,7 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -88,8 +90,11 @@ public class BaseUIService {
      * In this method we create all object of page factory.
      */
     @BeforeMethod(alwaysRun = true)
-    public void tearUp(ITestContext context, ITestResult result) {
-        testName = result.getMethod().getMethodName();
+    public void tearUp(ITestContext context, Method method) {
+        testName = method.getName();
+        System.out.println(">>>>>>>III<"+testName);
+        Description description = method.getAnnotation(Description.class);
+        System.out.println("dasd????>>>>>>>>>>>>"+description.value());
         driver = WebDriverManager.getDriverInstance();
         context.setAttribute("driver", driver);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));

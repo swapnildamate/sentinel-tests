@@ -1,8 +1,8 @@
 package org.sentinel.tests.constants;
 
-public class ConfigConstants {
+public class Config {
 
-    private ConfigConstants(){
+    private Config(){
 
     }
 
@@ -21,6 +21,13 @@ public class ConfigConstants {
     public static final String BUILD_NAME="build";
     public static final String RUN_NAME = "name";
     public static final String LT_BUILD="LT_BUILD";
+
+    //Test case Severity
+    public static final String CRITICAL="Critical";
+    public static final String MAJOR="Major";
+    public static final String MEDIUM="Medium";
+    public static final String LOW="Low";
+
 
 
 }

@@ -1,7 +1,8 @@
 package org.sentinel.tests.ui.spreecom;
 
-import io.qameta.allure.Description;
+import io.qameta.allure.*;
 import org.sentinel.tests.base.BaseUIService;
+import org.sentinel.tests.constants.Config;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.testng.annotations.Test;
@@ -42,6 +43,10 @@ public class LoginTest extends BaseUIService {
 
     @Test
     @Description("Verify login page.")
+    @Link("https://www.lambdatest.com/")
+    @Epic("Epic 102")
+    @Feature("Login")
+    @Severity(SeverityLevel.MINOR)
     public void T0101(Method method) throws Exception {
 
         String methodName =method.getName();
@@ -95,6 +100,10 @@ public class LoginTest extends BaseUIService {
     }
 
     @Test
+    @Link("https://www.lambdatest.com/")
+    @Epic("Epic 102")
+    @Feature("Login")
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Verify user able to login into system.")
     public void T0102(Method method) throws Exception {
         String methodName =method.getName();

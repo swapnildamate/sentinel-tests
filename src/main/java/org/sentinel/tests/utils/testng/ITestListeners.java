@@ -5,7 +5,7 @@
 package org.sentinel.tests.utils.testng;
 
 import org.openqa.selenium.WebDriver;
-import org.sentinel.tests.constants.ConfigConstants;
+import org.sentinel.tests.constants.Config;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.insights.CaptureAttachment;
 import org.sentinel.tests.utils.ExcelUtil;
@@ -129,7 +129,7 @@ public class ITestListeners implements ITestListener {
      */
     @Override
     public void onFinish(ITestContext context) {
-        testCasesResultMap = (List<Map<String, String>>) context.getAttribute(ConfigConstants.TEST_CASES_RESULT_MAP);
+        testCasesResultMap = (List<Map<String, String>>) context.getAttribute(Config.TEST_CASES_RESULT_MAP);
         if (!testCasesResultMap.isEmpty()) {
             ExcelUtil.addTestCases(testCasesResultMap);
         }

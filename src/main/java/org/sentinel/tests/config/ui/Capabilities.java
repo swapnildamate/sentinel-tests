@@ -6,7 +6,7 @@ package org.sentinel.tests.config.ui;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.sentinel.tests.base.BaseUIService;
-import org.sentinel.tests.constants.ConfigConstants;
+import org.sentinel.tests.constants.Config;
 import org.sentinel.tests.utils.testng.ReadTestNG;
 
 /**
@@ -45,11 +45,11 @@ public class Capabilities {
     public static DesiredCapabilities getCapabilities() {
         // Set up the desired capabilities for each iteration
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(ConfigConstants.PLATFORM, ReadTestNG.getParameter(ConfigConstants.PLATFORM));
-        capabilities.setCapability(ConfigConstants.BROWSER_NAME, ReadTestNG.getParameter(ConfigConstants.BROWSER_NAME));
-        capabilities.setCapability(ConfigConstants.BROWSER_VERSION, ReadTestNG.getParameter(ConfigConstants.BROWSER_VERSION));
-        capabilities.setCapability(ConfigConstants.BUILD_NAME,System.getenv(ConfigConstants.LT_BUILD));
-        capabilities.setCapability(ConfigConstants.RUN_NAME, BaseUIService.getTestName());
+        capabilities.setCapability(Config.PLATFORM, ReadTestNG.getParameter(Config.PLATFORM));
+        capabilities.setCapability(Config.BROWSER_NAME, ReadTestNG.getParameter(Config.BROWSER_NAME));
+        capabilities.setCapability(Config.BROWSER_VERSION, ReadTestNG.getParameter(Config.BROWSER_VERSION));
+        capabilities.setCapability(Config.BUILD_NAME,System.getenv(Config.LT_BUILD));
+        capabilities.setCapability(Config.RUN_NAME, BaseUIService.getTestName());
         return capabilities;
     }
 }

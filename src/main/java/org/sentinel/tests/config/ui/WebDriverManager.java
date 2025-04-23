@@ -6,7 +6,7 @@ package org.sentinel.tests.config.ui;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.sentinel.tests.constants.ConfigConstants;
+import org.sentinel.tests.constants.Config;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.testng.ReadTestNG;
 
@@ -48,16 +48,16 @@ public class WebDriverManager {
         if (driverThreadLocal.get() == null) {
             synchronized (WebDriverManager.class) { // Prevent race conditions
                 if (driverThreadLocal.get() == null) {// Double-check locking
-                    String runOn = ReadTestNG.getParameter(ConfigConstants.RUN_ON);
+                    String runOn = ReadTestNG.getParameter(Config.RUN_ON);
                     LoggerUtil.info(String.format("Doing setup for %s runs.", runOn));
                     switch (runOn.toLowerCase()) {
-                        case ConfigConstants.RUN_ON_REMOTE -> {
+                        case Config.RUN_ON_REMOTE -> {
                             LoggerUtil.info("Launching Remote Instance.");
                             driverThreadLocal.set(BrowserManager.getRemoteBrowser());
                             sessionId = ((RemoteWebDriver) driverThreadLocal.get()).getSessionId().toString();
                             LoggerUtil.info(String.format("Session Id: %s", sessionId));
                         }
-                        case ConfigConstants.RUN_ON_LOCAL -> {
+                        case Config.RUN_ON_LOCAL -> {
                             LoggerUtil.info("Launching Local Instance.");
                             driverThreadLocal.set(BrowserManager.getLocalBrowser());
                         }
