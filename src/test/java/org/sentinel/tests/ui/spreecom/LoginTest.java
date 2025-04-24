@@ -1,7 +1,8 @@
 package org.sentinel.tests.ui.spreecom;
 
-import io.qameta.allure.Description;
+import io.qameta.allure.*;
 import org.sentinel.tests.base.BaseUIService;
+import org.sentinel.tests.constants.Config;
 import org.sentinel.tests.utils.log.LoggerUtil;
 import org.sentinel.tests.utils.ExcelUtil;
 import org.testng.annotations.Test;
@@ -42,13 +43,15 @@ public class LoginTest extends BaseUIService {
 
     @Test
     @Description("Verify login page.")
-    public void T0101() throws Exception {
+    @Link("https://www.lambdatest.com/")
+    @Epic("Epic 102")
+    @Feature("Login")
+    @Severity(SeverityLevel.MINOR)
+    public void T0101(Method method) throws Exception {
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Method method = this.getClass().getMethod(methodName);
+        String methodName =method.getName();
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));
 
         //Read Test Data
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
@@ -71,7 +74,7 @@ public class LoginTest extends BaseUIService {
         //Step 3
         LoggerUtil.info("Step 3: Started.....");
         result = loginPage.isDisplayedEmailField();
-        assertLog.assertTrue(result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
+        assertLog.assertTrue(!result, "Step 3: Email field is displayed.", "Step 3: Email field is not displayed.");
 
         //Step 4
         LoggerUtil.info("Step 4: Started.....");
@@ -81,7 +84,7 @@ public class LoginTest extends BaseUIService {
         //Step 5
         LoggerUtil.info("Step 5: Started.....");
         result = loginPage.isDisplayedRememberMeCheckbox();
-        assertLog.assertTrue(result, "Step 5: Remember Me Checkbox field is displayed.", "Step 5: Remember Me Checkbox field is not displayed.");
+        assertLog.assertTrue(!result, "Step 5: Remember Me Checkbox field is displayed.", "Step 5: Remember Me Checkbox field is not displayed.");
 
         //Step 5
         LoggerUtil.info("Step 6: Started.....");
@@ -97,14 +100,15 @@ public class LoginTest extends BaseUIService {
     }
 
     @Test
+    @Link("https://www.lambdatest.com/")
+    @Epic("Epic 102")
+    @Feature("Login")
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Verify user able to login into system.")
-    public void T0102() throws Exception {
-
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Method method = this.getClass().getMethod(methodName);
+    public void T0102(Method method) throws Exception {
+        String methodName =method.getName();
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));
 
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
 

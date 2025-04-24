@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025 sentinel-tests
+ * All rights reserved.
+ */
 package org.sentinel.tests.utils;
 
 import org.apache.poi.ss.usermodel.*;
@@ -8,22 +12,50 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Utility class for Excel file operations in test automation reporting.
+ * This class provides methods for reading from and writing to Excel files,
+ * specifically designed for test case management and reporting.
+ * 
+ * The class includes functionality for:
+ * - Reading key-value pairs from Excel sheets
+ * - Creating new Excel files with predefined structures
+ * - Adding test case results to Excel sheets
+ * - Generating test execution summaries
+ * - Managing test case status with color-coded cells
+ * 
+ * Thread-safety is ensured through synchronization on all file operations.
+ * The class uses Apache POI library for Excel operations and supports XLSX format.
+ * 
+ * File structure:
+ * - Summary sheet: Contains overall test execution statistics
+ * - Package-specific sheets: Contains detailed test case results for each package
+ * 
+ * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
+ * @version 1.0
+ * @see org.apache.poi.xssf.usermodel.XSSFWorkbook
+ * @see org.apache.poi.ss.usermodel.Workbook
+ */
 public class ExcelUtil {
     private static final Object lock = new Object();
     private static final String FILE_PATH;
     private static String FILE_PATH_LATEST = null;
 
+
     static {
         String userDir = System.getProperty("user.dir"); // Gets the current working directory
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         FILE_PATH = userDir + File.separator + "reports" + File.separator + "excel-report" + File.separator + "TestSummary.xlsx";
     }
 
     /**
-     * Reads key-value pairs from an Excel sheet and stores them in a Map.
+     * Reads key-value pairs from a specified Excel file and sheet.
+     * The first column is treated as the key and the second column as the value.
+     * 
+     * @param fileName The name of the Excel file to read from
+     * @param sheetName The name of the sheet to read from
+     * @return A map containing key-value pairs read from the specified sheet
      */
     public static Map<String, String> readKeyValuePairs(String fileName, String sheetName) {
         String userDir = System.getProperty("user.dir");
@@ -61,7 +93,22 @@ public class ExcelUtil {
     }
 
     /**
-     * Creates an Excel file with a predefined structure if it doesn't exist.
+     * Creates a new Excel file with a predefined structure for test case management.
+     * The file includes a summary sheet and individual sheets for each package.
+     * 
+     * The summary sheet contains the following columns:
+     * - Package Name
+     * - Total Tests
+     * - Passed
+     * - Failed
+     * - Pass %
+     * 
+     * Each package sheet contains the following columns:
+     * - Sr No
+     * - Package Name
+     * - Method Name
+     * - Status (Pass/Fail/Skip)
+     * - Remark/Error Message
      */
     public static void createExcelFile() {
         synchronized (lock) {
@@ -94,7 +141,13 @@ public class ExcelUtil {
     }
 
     /**
-     * Adds a new row to the Excel file for each test case.
+     * Adds a test case result to the latest Excel file.
+     * This method is synchronized to ensure thread safety when adding results.
+     * 
+     * @param packageName The name of the package containing the test case
+     * @param methodName The name of the test method
+     * @param status The status of the test (e.g., "Pass", "Fail", "Skip")
+     * @param remark Additional remarks or error messages related to the test case
      */
     public static void addTestCase(String packageName, String methodName, String status, String remark) {
         synchronized (lock) {
@@ -124,7 +177,10 @@ public class ExcelUtil {
     }
 
     /**
-     * Converts any cell type to a string representation.
+     * Retrieves the string value from a cell, handling different cell types.
+     * 
+     * @param cell The cell to retrieve the value from
+     * @return The string value of the cell
      */
     private static String getStringCellValue(Cell cell) {
         switch (cell.getCellType()) {
@@ -146,7 +202,31 @@ public class ExcelUtil {
                 return "Unknown Type!";
         }
     }
+  
 
+    /**
+     * Adds test cases to an Excel workbook, organizing them by package and maintaining a summary sheet.
+     * This method is thread-safe through synchronization.
+     * 
+     * The method performs the following operations:
+     * - Creates a new workbook if it doesn't exist
+     * - Organizes test cases by package name in separate sheets
+     * - Creates/updates summary statistics for test cases
+     * - Applies formatting based on test status
+     * - Removes empty sheets
+     * - Updates the summary sheet with package-wise statistics
+     *
+     * @param testCases A List of Maps where each Map represents a test case with the following keys:
+     *                  - "Package": The package name of the test (defaults to "Uncategorized")
+     *                  - "Method": The name of the test method
+     *                  - "Status": The test status ("Pass" or "Fail")
+     *                  - "Remark": Any additional comments or remarks
+     *                  
+     * @throws IOException If there are issues with file operations
+     * 
+     * Note: The method silently skips invalid test cases (those missing Method or Status)
+     *       and logs a message if no valid test cases are found to process.
+     */
     public static void addTestCases(List<Map<String, String>> testCases) {
         synchronized (lock) {
             FileInputStream fis = null;
@@ -241,7 +321,17 @@ public class ExcelUtil {
         }
     }
 
-
+    /**
+     * Creates a header row for the specified sheet.
+     * The header includes the following columns:
+     * - Sr No
+     * - Package Name
+     * - Method Name
+     * - Status (Pass/Fail/Skip)
+     * - Remark/Error Message
+     *
+     * @param sheet The sheet to create the header for
+     */
     private static void createHeader(Sheet sheet) {
         if (sheet.getPhysicalNumberOfRows() > 0) {
             return;
@@ -253,6 +343,18 @@ public class ExcelUtil {
         }
     }
 
+    /**
+     * Updates the summary sheet with package-wise statistics.
+     * The summary includes the following columns:
+     * - Package Name
+     * - Total Tests
+     * - Passed
+     * - Failed
+     * - Pass %
+     *
+     * @param workbook The workbook containing the summary sheet
+     * @param summaryMap A map containing package-wise statistics
+     */
     private static void updateSummarySheet(Workbook workbook, Map<String, Map<String, Integer>> summaryMap) {
         Sheet summarySheet = workbook.getSheet("Summary");
 
@@ -297,6 +399,12 @@ public class ExcelUtil {
         }
     }
 
+    /**
+     * Removes empty sheets from the workbook, except for the "Summary" sheet.
+     * This helps in keeping the workbook clean and focused on relevant data.
+     *
+     * @param workbook The workbook from which to remove empty sheets
+     */
     private static void removeEmptySheets(Workbook workbook) {
         for (int i = workbook.getNumberOfSheets() - 1; i >= 0; i--) {
             Sheet sheet = workbook.getSheetAt(i);
@@ -306,6 +414,14 @@ public class ExcelUtil {
         }
     }
 
+    /**
+     * Returns a CellStyle for the given status, applying color coding based on the status.
+     * The method uses Apache POI's IndexedColors to set the cell background color.
+     *
+     * @param workbook The workbook to create the cell style in
+     * @param status The status of the test case (e.g., "Pass", "Fail", "Skip")
+     * @return A CellStyle object with the appropriate background color for the status
+     */
     private static CellStyle getStatusCellStyle(Workbook workbook, String status) {
         CellStyle style = workbook.createCellStyle();
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);

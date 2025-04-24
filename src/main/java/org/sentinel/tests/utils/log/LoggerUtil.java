@@ -1,6 +1,6 @@
 package org.sentinel.tests.utils.log;
 
-import org.sentinel.tests.utils.insights.UpdateAllure;
+import org.sentinel.tests.utils.insights.AllureUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -8,37 +8,30 @@ import java.util.Date;
 import java.util.logging.*;
 
 /**
- * The {@code Log} class provides a thread-safe logging utility with support for
- * both file-based and console-based logging. It includes ANSI color codes for
- * enhanced readability of console logs and supports multiple log levels such as
- * FINEST, FINER, FINE, CONFIG, INFO, WARNING, and SEVERE.
+ * A utility class for logging operations with enhanced formatting and
+ * color-coding.
+ * This class provides a singleton logger instance with both file and console
+ * logging capabilities.
  * 
- * <p>This class uses a singleton pattern to ensure a single instance of the logger
- * is used throughout the application. The logger is configured with a file handler
- * for persistent logs and a console handler for colored output.
+ * Key features:
+ * - Thread-safe singleton logger instance
+ * - Color-coded console output based on log levels
+ * - File logging with timestamp and level information
+ * - Support for all standard Java logging levels (FINEST to SEVERE)
+ * - Integration with Allure reporting for INFO and ERROR levels
  * 
- * <p>Usage example:
- * <pre>
- * {@code
- * Log.info("Application started.");
- * Log.warning("This is a warning message.");
- * Log.error("An error occurred!");
- * }
- * </pre>
+ * Console Color Coding:
+ * - SEVERE: Red
+ * - WARNING: Yellow
+ * - INFO: Green
+ * - CONFIG: Cyan
+ * - FINE: Blue
+ * - FINER/FINEST: Purple
  * 
- * <p>Log levels and their corresponding colors in the console:
- * <ul>
- *   <li>{@code SEVERE} - Red</li>
- *   <li>{@code WARNING} - Yellow</li>
- *   <li>{@code INFO} - Green</li>
- *   <li>{@code CONFIG} - Cyan</li>
- *   <li>{@code FINE} - Blue</li>
- *   <li>{@code FINER} and {@code FINEST} - Purple</li>
- * </ul>
+ * File logs are stored in 'app.log' with a simple format: [timestamp] [level]
+ * message
  * 
- * <p>Note: The file handler logs messages in plain text without colors.
- * 
- * @author Swapnil Damate
+ * @author <a href="https://github.com/swapnildamate">Swapnil Damate</a>
  * @version 1.0
  */
 public class LoggerUtil {
@@ -121,13 +114,20 @@ public class LoggerUtil {
                         }
 
                         private String getColor(Level level) {
-                            if (level == Level.SEVERE) return RED;
-                            else if (level == Level.WARNING) return YELLOW;
-                            else if (level == Level.INFO) return GREEN;
-                            else if (level == Level.CONFIG) return CYAN;
-                            else if (level == Level.FINE) return BLUE;
-                            else if (level == Level.FINER || level == Level.FINEST) return PURPLE;
-                            else return RESET;
+                            if (level == Level.SEVERE)
+                                return RED;
+                            else if (level == Level.WARNING)
+                                return YELLOW;
+                            else if (level == Level.INFO)
+                                return GREEN;
+                            else if (level == Level.CONFIG)
+                                return CYAN;
+                            else if (level == Level.FINE)
+                                return BLUE;
+                            else if (level == Level.FINER || level == Level.FINEST)
+                                return PURPLE;
+                            else
+                                return RESET;
                         }
                     });
                     consoleHandler.setLevel(Level.ALL);
@@ -181,7 +181,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void info(String message) {
-        UpdateAllure.pass(message);
+        AllureUtil.pass(message);
         log(Level.INFO, message);
     }
 
@@ -191,6 +191,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void warning(String message) {
+        AllureUtil.warn(message);
         log(Level.WARNING, message);
     }
 
@@ -200,7 +201,7 @@ public class LoggerUtil {
      * @param message the message to log
      */
     public static void error(String message) {
-        UpdateAllure.fail(message);
+        AllureUtil.fail(message);
         log(Level.SEVERE, message);
     }
 
