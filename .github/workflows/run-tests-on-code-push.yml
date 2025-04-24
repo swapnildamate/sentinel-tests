@@ -68,7 +68,6 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          external_repository: swapnildamate/reports
           publish_branch: gh-pages
           publish_dir: ${{ github.workspace }}/allure-history
 
