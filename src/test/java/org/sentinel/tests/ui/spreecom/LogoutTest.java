@@ -15,13 +15,11 @@ public class LogoutTest extends BaseUIService {
 
     @Test
     @Description("Verify user able to logout.")
-    public void T0201() throws Exception {
+    public void T0201(Method method) throws Exception {
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Method method = this.getClass().getMethod(methodName);
+        String methodName =method.getName();
         Description description = method.getAnnotation(Description.class);
-        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value().toString()));
+        LoggerUtil.info(String.format("Test Case : %s Description :%s", methodName, description.value()));
 
         Map<String, String> testData = ExcelUtil.readKeyValuePairs(dataFile, "user1");
 
