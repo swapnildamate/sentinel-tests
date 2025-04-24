@@ -1,4 +1,4 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","0","tearUp","sentinel-tests","Thu Apr 24 11:46:31 UTC 2025","broken","Thu Apr 24 11:46:31 UTC 2025","org.sentinel.tests.ui.spreecom.LoginTest","all-api-ui-tests","org.sentinel.tests.ui.spreecom.LoginTest","tearUp"
-"Verify user able to login into system.","16","T0102","sentinel-tests","Thu Apr 24 11:46:30 UTC 2025","skipped","Thu Apr 24 11:46:30 UTC 2025","org.sentinel.tests.ui.spreecom.LoginTest","all-api-ui-tests","org.sentinel.tests.ui.spreecom.LoginTest","T0102"
-"Verify login page.","0","T0101","sentinel-tests","Thu Apr 24 11:46:31 UTC 2025","skipped","Thu Apr 24 11:46:31 UTC 2025","org.sentinel.tests.ui.spreecom.LoginTest","all-api-ui-tests","org.sentinel.tests.ui.spreecom.LoginTest","T0101"
+"Verify login page.","0","T0101","sentinel-tests","Thu Apr 24 11:46:50 UTC 2025","skipped","Thu Apr 24 11:46:50 UTC 2025","org.sentinel.tests.ui.spreecom.LoginTest","all-api-ui-tests","org.sentinel.tests.ui.spreecom.LoginTest","T0101"
+"Verify user able to login into system.","0","T0102","sentinel-tests","Thu Apr 24 11:46:49 UTC 2025","skipped","Thu Apr 24 11:46:49 UTC 2025","org.sentinel.tests.ui.spreecom.LoginTest","all-api-ui-tests","org.sentinel.tests.ui.spreecom.LoginTest","T0102"
+"","0","tearUp","sentinel-tests","Thu Apr 24 11:46:50 UTC 2025","broken","Thu Apr 24 11:46:50 UTC 2025","org.sentinel.tests.ui.spreecom.LoginTest","all-api-ui-tests","org.sentinel.tests.ui.spreecom.LoginTest","tearUp"
